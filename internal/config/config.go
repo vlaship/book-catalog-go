@@ -119,9 +119,11 @@ func (e *envs) jwt() {
 
 func (e *envs) logger() {
 	level, err := zerolog.ParseLevel(e.LogLevel)
-	if err != nil || level == zerolog.NoLevel {
+
+	if err != nil {
 		level = zerolog.InfoLevel
 	}
+
 	config.Log.Level = level
 	config.Log.JSON = e.LogJSON
 }

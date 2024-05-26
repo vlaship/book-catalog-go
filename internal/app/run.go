@@ -42,12 +42,11 @@ func Run(cfg *config.Config, log logger.Logger) error {
 		IdleTimeout:  cfg.ServerProps.IdleTimeout,
 	}
 
-	go func() error {
+	go func() {
 		log.Inf().Msg("starting http-server...")
 		if err = server.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
-			return fmt.Errorf("failed to start server: %w", err)
+			log.Err(err).Msg("failed to start server: %w", err)
 		}
-		return nil
 	}()
 
 	log.Inf().Msg("Book Catalog is started...")

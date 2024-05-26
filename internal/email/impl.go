@@ -37,7 +37,10 @@ func New(cfg *config.Config) Sender {
 }
 
 func (s *SenderImpl) Send(to []string, subj string, tmpl *template.Template, placeHolders any) error {
-	body, _ := s.prepareBody(subj, tmpl, placeHolders)
+	body, err := s.prepareBody(subj, tmpl, placeHolders)
+	if err != nil {
+		return err
+	}
 
 	if err := smtp.SendMail(
 		fmt.Sprintf("%s:%d", s.host, s.port),
