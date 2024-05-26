@@ -7,6 +7,11 @@ import (
 	"math/big"
 )
 
+const (
+	otpMinValue = 100000
+	otpRange    = 900000
+)
+
 func OTP() string {
 	sixDigitNum := generateRandomNumber()
 	sixDigitStr := formatAsSixDigit(sixDigitNum)
@@ -15,8 +20,8 @@ func OTP() string {
 }
 
 func generateRandomNumber() int64 {
-	bigInt, _ := rand.Int(rand.Reader, big.NewInt(900000))
-	return bigInt.Int64() + 100000
+	bigInt, _ := rand.Int(rand.Reader, big.NewInt(otpRange))
+	return bigInt.Int64() + otpMinValue
 }
 
 func formatAsSixDigit(sixDigitNum int64) string {

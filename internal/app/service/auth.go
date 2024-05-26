@@ -89,7 +89,7 @@ func (s *AuthService) Signup(ctx context.Context, input model.User) (*model.User
 
 	hash, err := s.pass.Hash(input.Password)
 	if err != nil {
-		s.log.Err(err).Ctx(ctx).Msg("hashPassword")
+		s.log.Err(err).Ctx(ctx).Msg("Failed to hash password")
 		return nil, apperr.ErrInternalServerError
 	}
 	input.Password = hash

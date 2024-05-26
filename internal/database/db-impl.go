@@ -53,7 +53,7 @@ func New(cfg *config.Config, log logger.Logger) (ConnPool, error) {
 	}
 
 	log.Trc().Msg("ping database")
-	if err := pool.Ping(ctx); err != nil {
+	if err = pool.Ping(ctx); err != nil {
 		log.Err(err).Msg("failed to ping database")
 		return nil, err
 	}
