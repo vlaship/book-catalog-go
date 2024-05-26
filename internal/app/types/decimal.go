@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	places = 2
+	decimalPlaces = 2
 )
 
 // Decimal is a custom type for money
@@ -22,7 +22,7 @@ func (d *Decimal) String() string {
 
 // MarshalJSON to customize the JSON encoding for DateDay.
 func (d *Decimal) MarshalJSON() ([]byte, error) {
-	return []byte(d.StringFixedBank(places)), nil
+	return []byte(d.StringFixedBank(decimalPlaces)), nil
 }
 
 // UnmarshalJSON to customize the JSON decoding for DateDay.
@@ -56,7 +56,7 @@ type PositiveDecimal struct {
 
 // String to string
 func (d *PositiveDecimal) String() string {
-	return d.Value.StringFixedBank(places)
+	return d.Value.StringFixedBank(decimalPlaces)
 }
 
 // UnmarshalJSON to customize the JSON decoding for DateDay.

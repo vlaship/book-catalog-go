@@ -12,7 +12,7 @@ import (
 
 const (
 	subjActivationMail    = "Subject: Activate Your Account\n"
-	subjResetPasswordMail = "Subject: Reset Password\n" //nolint:gosec // just subject
+	subjResetPasswordMail = "Subject: Reset Password\n" //nolint:gosec // Subject line is safe
 )
 
 // SendMailService is an interface for send mail service

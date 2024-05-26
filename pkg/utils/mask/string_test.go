@@ -27,7 +27,7 @@ func TestMaskEdge5Case(t *testing.T) {
 func TestMaskEdge6Case(t *testing.T) {
 	result := String("123456")
 	expected := "12" + maskedPart + "56"
-	assert.Equal(t, expected, result, "String should return ***** for input of length 5")
+	assert.Equal(t, expected, result, "String should return ***** for input of length 6")
 }
 
 func TestMaskEmptyString(t *testing.T) {
