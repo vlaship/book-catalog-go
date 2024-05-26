@@ -49,8 +49,8 @@ type UserStatus string
 
 // UserStatus codes
 const (
-	UserStatusActive      UserStatus = ""
-	UserStatusNonActivate UserStatus = "user_status_non_activate"
+	UserStatusActive    UserStatus = ""
+	UserStatusNonActive UserStatus = "user_status_non_active"
 )
 
 // GetAppError by UserNotActiveStatus
@@ -58,7 +58,7 @@ func (u *User) GetAppError() error {
 	switch u.Data.Status {
 	case UserStatusActive:
 		return nil
-	case UserStatusNonActivate:
+	case UserStatusNonActive:
 		return apperr.ErrUserNotActivated
 	default:
 		return apperr.ErrForbidden

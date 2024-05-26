@@ -42,7 +42,7 @@ func (Signup) Model(in *request.Signup) model.User {
 		Data: model.UserData{
 			FirstName: in.Firstname,
 			LastName:  in.Lastname,
-			Status:    model.UserStatusNonActivate,
+			Status:    model.UserStatusNonActive,
 		},
 	}
 }

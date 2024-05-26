@@ -102,7 +102,7 @@ func (s *AuthService) Signup(ctx context.Context, input model.User) (*model.User
 				apperr.WithTitle("User already exists"),
 			)
 		}
-		s.log.Err(err).Ctx(ctx).Msg("Create")
+		s.log.Err(err).Ctx(ctx).Msg("failed to create user")
 		return nil, apperr.ErrInternalServerError
 	}
 
