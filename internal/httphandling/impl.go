@@ -32,37 +32,38 @@ func (h *HTTPErrorHandlerImpl) HandlerError(f func(w http.ResponseWriter, r *htt
 			return
 		}
 
-		h.log.Wrn().Err(err).Values(
-			"requestID", r.Header.Get("X-Request-ID"),
-		).Msg("error handling request")
+		h.log.Wrn().Err(err).Values("requestID", r.Header.Get("X-Request-ID")).Msg("error handling request")
 
-		p := getProblemDetails(err)
-		write(w, r, p)
+		p := h.getProblemDetails(err)
+		h.write(w, r, p)
 	}
 }
 
-func AppErrorResponse(w http.ResponseWriter, r *http.Request, a apperr.AppError) {
-	p := getProblemDetails(a)
-	write(w, r, p)
+func (h *HTTPErrorHandlerImpl) AppErrorResponse(w http.ResponseWriter, r *http.Request, a apperr.AppError) {
+	p := h.getProblemDetails(a)
+	h.write(w, r, p)
 }
 
-func write(w http.ResponseWriter, r *http.Request, p *response.ProblemDetail) {
+func (h *HTTPErrorHandlerImpl) write(w http.ResponseWriter, r *http.Request, p *response.ProblemDetail) {
 	p.Timestamp = time.Now().Format(time.RFC3339Nano)
 	p.Instance = r.RequestURI
 
 	// Write the JSON response
 	w.Header().Set(headerContentType, problemJSON)
 	w.WriteHeader(p.Status)
-	_, _ = w.Write(p.JSON())
+	_, err := w.Write(p.JSON())
+	if err != nil {
+		h.log.Err(err).Msg("failed to write response")
+	}
 }
 
-func newFromError(err error) response.ProblemDetail {
+func (h *HTTPErrorHandlerImpl) newFromError(err error) response.ProblemDetail {
 	return response.ProblemDetail{
 		Detail: err.Error(),
 	}
 }
 
-func newFromAppError(err apperr.AppError) response.ProblemDetail {
+func (h *HTTPErrorHandlerImpl) newFromAppError(err apperr.AppError) response.ProblemDetail {
 	return response.ProblemDetail{
 		Title:  err.Title,
 		Detail: err.Detail,
@@ -70,21 +71,21 @@ func newFromAppError(err apperr.AppError) response.ProblemDetail {
 	}
 }
 
-func getProblemDetails(err error) *response.ProblemDetail {
+func (h *HTTPErrorHandlerImpl) getProblemDetails(err error) *response.ProblemDetail {
 	var appError apperr.AppError
 	if errors.As(err, &appError) {
-		p := newFromAppError(appError)
-		p.Status = getStatus(appError)
+		p := h.newFromAppError(appError)
+		p.Status = h.getStatus(appError)
 		return &p
 	}
 
-	p := newFromError(err)
+	p := h.newFromError(err)
 	p.Status = http.StatusInternalServerError
 	p.Title = http.StatusText(http.StatusInternalServerError)
 	return &p
 }
 
-func getStatus(err error) int {
+func (h *HTTPErrorHandlerImpl) getStatus(err error) int {
 	switch {
 	case errors.Is(err, apperr.ErrUnauthorized):
 		return http.StatusUnauthorized

@@ -29,14 +29,21 @@ type UserIDReader interface {
 type AuthMiddleware struct {
 	userIDReader UserIDReader
 	userReader   UserReader
+	handler      httphandling.HTTPErrorHandler
 	log          logger.Logger
 }
 
 // NewAuthMiddleware creates a new AuthMiddleware instance.
-func NewAuthMiddleware(userIDReader UserIDReader, userReader UserReader, log logger.Logger) *AuthMiddleware {
+func NewAuthMiddleware(
+	userIDReader UserIDReader,
+	userReader UserReader,
+	handler httphandling.HTTPErrorHandler,
+	log logger.Logger,
+) *AuthMiddleware {
 	return &AuthMiddleware{
 		userReader:   userReader,
 		userIDReader: userIDReader,
+		handler:      handler,
 		log:          log.New("AuthMiddleware"),
 	}
 }
@@ -83,10 +90,10 @@ func (m *AuthMiddleware) validateUser(w http.ResponseWriter, r *http.Request, us
 	switch {
 
 	case errors.Is(err, apperr.ErrForbidden):
-		httphandling.AppErrorResponse(w, r, apperr.ErrForbidden)
+		m.handler.AppErrorResponse(w, r, apperr.ErrForbidden)
 
 	case errors.Is(err, apperr.ErrUserNotActivated):
-		httphandling.AppErrorResponse(w, r, apperr.ErrUserNotActivated)
+		m.handler.AppErrorResponse(w, r, apperr.ErrUserNotActivated)
 
 	default:
 		m.unauthorized(w, r)
@@ -96,7 +103,7 @@ func (m *AuthMiddleware) validateUser(w http.ResponseWriter, r *http.Request, us
 }
 
 func (m *AuthMiddleware) unauthorized(w http.ResponseWriter, r *http.Request) {
-	httphandling.AppErrorResponse(w, r, apperr.ErrUnauthorized)
+	m.handler.AppErrorResponse(w, r, apperr.ErrUnauthorized)
 }
 
 func (m *AuthMiddleware) getUser(ctx context.Context, userID types.UserID) (*model.User, error) {

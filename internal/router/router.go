@@ -4,6 +4,7 @@ import (
 	_ "book-catalog/api/docs" // swagger docs
 	"book-catalog/internal/app/controller"
 	"book-catalog/internal/authentication"
+	"book-catalog/internal/httphandling"
 	"book-catalog/internal/logger"
 	mw "book-catalog/internal/router/middleware"
 	"compress/gzip"
@@ -28,6 +29,7 @@ func Setup(
 	log logger.Logger,
 	userReader mw.UserReader,
 	authenticator authentication.Authenticator,
+	handler httphandling.HTTPErrorHandler,
 ) *chi.Mux {
 	log.Trc().Msg("setup router")
 	basePath := "/api"
@@ -46,12 +48,12 @@ func Setup(
 	r.Use(middleware.Heartbeat("/health"))
 	r.Use(mw.CorsHandler())
 	r.Use(middleware.StripSlashes)
-	r.Use(mw.AllowContentType("application/json"))
+	r.Use(mw.NewContentTypeMiddleware(handler).AllowContentType("application/json"))
 
 	r.Route(basePath, func(baseRouter chi.Router) {
 		baseRouter.Group(func(authRouter chi.Router) {
 			// auth validation
-			authRouter.Use(mw.NewAuthMiddleware(authenticator, userReader, log).Validation())
+			authRouter.Use(mw.NewAuthMiddleware(authenticator, userReader, handler, log).Validation())
 
 			// endpoints
 			controllers.AuthorController.RegisterRoutes(authRouter)

@@ -14,6 +14,7 @@ import (
 func Wire(
 	facades *facade.Facades,
 	validator validation.Validator,
+	handler httphandling.HTTPErrorHandler,
 	log logger.Logger,
 ) *Controllers {
 	wire.Build(
@@ -26,7 +27,6 @@ func Wire(
 		UserWriterProvider,
 		ActivatorProvider,
 		PasswordResetHandlerProvider,
-		HTTPErrorHandlerProvider,
 		BookReaderProvider,
 		BookWriterProvider,
 		AuthorReaderProvider,
@@ -59,11 +59,6 @@ func ActivatorProvider(facades *facade.Facades) Activator {
 // PasswordResetHandlerProvider is a provider for PasswordResetHandler
 func PasswordResetHandlerProvider(facades *facade.Facades) PasswordResetHandler {
 	return facades.AuthFacade
-}
-
-// HTTPErrorHandlerProvider is a provider for HTTPErrorHandler
-func HTTPErrorHandlerProvider(log logger.Logger) httphandling.HTTPErrorHandler {
-	return httphandling.New(log)
 }
 
 // BookReaderProvider is a provider for BookReader

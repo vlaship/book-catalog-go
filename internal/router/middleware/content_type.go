@@ -8,9 +8,19 @@ import (
 	"strings"
 )
 
+// ContentTypeMiddleware is a middleware that enforces a whitelist of request Content-Types.
+type ContentTypeMiddleware struct {
+	handler httphandling.HTTPErrorHandler
+}
+
+// NewContentTypeMiddleware creates a new ContentTypeMiddleware instance.
+func NewContentTypeMiddleware(handler httphandling.HTTPErrorHandler) *ContentTypeMiddleware {
+	return &ContentTypeMiddleware{handler: handler}
+}
+
 // AllowContentType enforces a whitelist of request Content-Types otherwise responds
 // with a 415 Unsupported Media Type status.
-func AllowContentType(contentTypes ...string) func(next http.Handler) http.Handler {
+func (m *ContentTypeMiddleware) AllowContentType(contentTypes ...string) func(next http.Handler) http.Handler {
 	allowedContentTypes := make(map[string]struct{}, len(contentTypes))
 	for _, contentType := range contentTypes {
 		allowedContentTypes[strings.TrimSpace(strings.ToLower(contentType))] = struct{}{}
@@ -37,7 +47,7 @@ func AllowContentType(contentTypes ...string) func(next http.Handler) http.Handl
 			p := apperr.ErrUnsupportedMediaType.WithFunc(
 				apperr.WithDetail(fmt.Sprintf("Content-Type must be one of: %s", strings.Join(contentTypes, ", "))),
 			)
-			httphandling.AppErrorResponse(w, r, p)
+			m.handler.AppErrorResponse(w, r, p)
 		}
 
 		return http.HandlerFunc(fn)

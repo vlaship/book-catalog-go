@@ -35,7 +35,7 @@ mockgen:
 	@go generate ./...
 
 mockery-dl:
-	@echo "Installing mockgen"
+	@echo "Installing mockery"
 	@go install github.com/vektra/mockery/v2@latest
 
 mockery:

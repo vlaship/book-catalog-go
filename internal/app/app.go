@@ -10,6 +10,7 @@ import (
 	"book-catalog/internal/config"
 	"book-catalog/internal/database"
 	"book-catalog/internal/email"
+	"book-catalog/internal/httphandling"
 	"book-catalog/internal/logger"
 	"book-catalog/internal/router"
 	"book-catalog/internal/template"
@@ -68,12 +69,17 @@ func NewApp(cfg *config.Config, log logger.Logger) (*App, error) {
 	log.Trc().Msg("init facades")
 	facades := facade.Wire(services, log)
 
+	// init http error handler
+	log.Trc().Msg("init http error handler")
+	httpErrorHandler := httphandling.New(log)
+
+	// init controllers
 	log.Trc().Msg("init controllers")
-	controllers := controller.Wire(facades, validator, log)
+	controllers := controller.Wire(facades, validator, httpErrorHandler, log)
 
 	// init router
 	log.Trc().Msg("init router")
-	webRouter := router.Setup(controllers, log, repos.UserRepository, authenticator)
+	webRouter := router.Setup(controllers, log, repos.UserRepository, authenticator, httpErrorHandler)
 
 	// create new App instance.
 	app := &App{
