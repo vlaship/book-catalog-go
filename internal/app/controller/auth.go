@@ -195,7 +195,7 @@ func (ctrl *AuthController) Resend(w http.ResponseWriter, r *http.Request) error
 // @Failure 500 {object} response.ProblemDetail
 // @Router /v1/auth/password/reset [post]
 func (ctrl *AuthController) Reset(w http.ResponseWriter, r *http.Request) error {
-	ctrl.log.Trc().Ctx(r.Context()).Msg("Resend")
+	ctrl.log.Trc().Ctx(r.Context()).Msg("Reset")
 
 	req, err := decodeAuth(w, r, request.ResetPassword{}, ctrl.valid)
 	if err != nil {
