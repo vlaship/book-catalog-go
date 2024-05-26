@@ -25,7 +25,7 @@ type UserWriter interface {
 	UpdateInfo(ctx context.Context, req *request.UserData) error
 }
 
-// UserController is an interface for user controller
+// UserController is a controller for user
 type UserController struct {
 	reader UserReader
 	writer UserWriter
