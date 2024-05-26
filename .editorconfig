@@ -1,0 +1,16 @@
+# EditorConfig is a file format supported by various editors to define editor settings.
+# For more details, visit https://editorconfig.org/
+
+# Top-most EditorConfig file, acts as root for all other EditorConfig files.
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Go file settings
+[*.{go,mod,sum}]
+indent_style = tab
+indent_size = tab

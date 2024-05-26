@@ -1,0 +1,16 @@
+### get user
+GET {{url}}{{api}}/user
+X-Request-ID: {{$uuid}}
+Authorization: Bearer {{admin}}
+
+### update user info
+PUT {{url}}{{api}}/user/info
+X-Request-ID: {{$uuid}}
+Authorization: Bearer {{admin}}
+Content-Type: application/json
+
+{
+  "firstname": "Firstname",
+  "lastname": "Lastname",
+  "email": "email@email.com"
+}

@@ -1,0 +1,72 @@
+linters-settings:
+  govet:
+    check-shadowing: false
+  golint:
+    min-confidence: 0
+  gocyclo:
+    min-complexity: 20
+  maligned:
+    suggest-new: true
+  goconst:
+    min-len: 2
+    min-occurrences: 2
+  misspell:
+    locale: US
+  lll:
+    line-length: 150
+  gocritic:
+    settings:
+      hugeParam:
+        sizeThreshold: 256
+      rangeValCopy:
+        sizeThreshold: 256
+    enabled-tags:
+      - performance
+      - style
+      - experimental
+      - opinionated
+      - diagnostic
+
+linters:
+  enable:
+    - bodyclose
+    - revive
+    - govet
+    - unconvert
+    - unused
+    - gas
+    - gocyclo
+    - misspell
+    - unparam
+    - typecheck
+    - ineffassign
+    - stylecheck
+    - gochecknoinits
+    - exportloopref
+    - gocritic
+    - nakedret
+    - gosimple
+    - prealloc
+    - zerologlint
+    - wastedassign
+    - usestdlibvars
+    - rowserrcheck
+    - lll
+    - goconst
+    - gosec
+    - sqlclosecheck
+    - contextcheck
+    - cyclop
+    - dupl
+    - errchkjson
+    - deadcode
+  #    - govulncheck
+  #    - gokart
+  fast: false
+  disable-all: true
+
+run:
+  timeout: 5m
+  allow-parallel-runners: true
+  skip-dirs:
+    - test
