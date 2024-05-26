@@ -30,7 +30,6 @@ func Run(cfg *config.Config, log logger.Logger) error {
 		return fmt.Errorf("failed to start application: %w", err)
 	}
 
-	// close db connection
 	defer app.DB.Close()
 
 	// Start server

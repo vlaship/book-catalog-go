@@ -30,9 +30,6 @@ func NewTemplatesImpl() (Templates, error) {
 		return nil, err
 	}
 
-	if err != nil {
-		return nil, err
-	}
 	return &TemplatesImpl{
 		activation: act,
 		reset:      rst,
