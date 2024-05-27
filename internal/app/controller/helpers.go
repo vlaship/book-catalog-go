@@ -17,7 +17,6 @@ const (
 	headerContentType = "Content-Type"
 	applicationJSON   = "application/json"
 	extractParam      = "Extract param"
-	unmarshalRequest  = "unmarshal request"
 )
 
 // encode is a helper function to encode JSON responses

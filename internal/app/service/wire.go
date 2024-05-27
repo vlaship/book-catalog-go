@@ -21,7 +21,7 @@ func Wire(
 	templates template.Templates,
 	sender email.Sender,
 	cacher cache.Cache,
-	idGen snowflake.SnowflakeIDGenerator,
+	idGen snowflake.IDGenerator,
 	log logger.Logger,
 ) *Services {
 	wire.Build(

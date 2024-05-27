@@ -85,8 +85,8 @@ func printRoutes(routes chi.Routes, log logger.Logger) {
 		func(
 			method string,
 			route string,
-			handler http.Handler,
-			middlewares ...func(http.Handler) http.Handler,
+			_ http.Handler,
+			_ ...func(http.Handler) http.Handler,
 		) error {
 			log.Inf().Msg("%s %s", method, route)
 			return nil

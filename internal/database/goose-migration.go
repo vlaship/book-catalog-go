@@ -7,7 +7,7 @@ import (
 	"embed"
 	"fmt"
 
-	_ "github.com/jackc/pgx/v5/stdlib"
+	_ "github.com/jackc/pgx/v5/stdlib" //nolint:revive // required for goose
 	"github.com/pressly/goose/v3"
 )
 
