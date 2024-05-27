@@ -56,7 +56,7 @@ func UserReaderProvider(repos *repository.Repositories) UserReader {
 	return repos.UserRepository
 }
 
-// AssumptionsReaderProvider is a provider for AssumptionsReader
+// TosReaderProvider is a provider for TosReader
 func TosReaderProvider(repos *repository.Repositories) TosReader {
 	return repos.PropertyRepository
 }

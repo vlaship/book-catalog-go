@@ -7,4 +7,4 @@ VALUES ('tos', '{"title":"Terms of Service","text":"By using our services, you a
 -- +goose Down
 DELETE
 FROM catalog.properties
-WHERE property_name = 'assumptions';
+WHERE property_name = 'tos';

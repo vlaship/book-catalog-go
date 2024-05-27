@@ -8,7 +8,7 @@ import (
 
 // TosReader is an interface for term of service reader
 //
-//go:generate mockgen -destination=../../../test/mock/service/mock-assumptions-reader.go -package=mock . TosReader
+//go:generate mockgen -destination=../../../test/mock/service/mock-tos-reader.go -package=mock . TosReader
 type TosReader interface {
 	GetTos(ctx context.Context) (*model.TermOfService, error)
 }

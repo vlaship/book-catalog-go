@@ -52,10 +52,8 @@ build-all: swaggo mockgen mockery
 	@go build -v ./cmd/app/main.go
 
 build:
-	@echo "Formatting"
-	@go fmt ./...
-	@echo "Building app"
-	@go build -v ./cmd/app/main.go
+	@echo "Formatting and Building app"
+	@go fmt ./... && go build -v ./cmd/app/main.go
 
 tests-short:
 	@echo "Running short tests"
