@@ -85,8 +85,8 @@ func MustGet() *Config {
 		}
 
 		e.jwt()
-		e.connDb()
-		e.logLevelDb()
+		e.connDB()
+		e.logLevelDB()
 		e.logger()
 		e.sendMail()
 		e.server()
@@ -128,7 +128,7 @@ func (e *envs) logger() {
 	config.Log.JSON = e.LogJSON
 }
 
-func (e *envs) connDb() {
+func (e *envs) connDB() {
 	config.ConnDB = fmt.Sprintf("postgres://%s:%s@%s:%d/%s?sslmode=%s",
 		e.DBUser,
 		e.DBPassword,
@@ -143,7 +143,7 @@ func (e *envs) domain() {
 	config.Domain = e.DOMAIN
 }
 
-func (e *envs) logLevelDb() {
+func (e *envs) logLevelDB() {
 	config.LogLevelDB = e.DBLogLevel
 }
 

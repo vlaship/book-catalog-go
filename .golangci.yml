@@ -34,7 +34,6 @@ linters:
     - govet
     - unconvert
     - unused
-    - gas
     - gocyclo
     - misspell
     - unparam
@@ -59,7 +58,6 @@ linters:
     - cyclop
     - dupl
     - errchkjson
-    - deadcode
   #    - govulncheck
   #    - gokart
   fast: false
@@ -68,5 +66,6 @@ linters:
 run:
   timeout: 5m
   allow-parallel-runners: true
-  skip-dirs:
-    - test
+  issues:
+    exclude-dirs:
+      - test

@@ -33,7 +33,7 @@ type AuthService struct {
 	writer UserWriter
 	auth   Authenticator
 	pass   PasswordHandler
-	idGen  snowflake.SnowflakeIDGenerator
+	idGen  snowflake.IDGenerator
 	log    logger.Logger
 }
 
@@ -43,7 +43,7 @@ func NewAuthService(
 	writer UserWriter,
 	auth Authenticator,
 	pass PasswordHandler,
-	idGen snowflake.SnowflakeIDGenerator,
+	idGen snowflake.IDGenerator,
 	log logger.Logger,
 ) *AuthService {
 	return &AuthService{

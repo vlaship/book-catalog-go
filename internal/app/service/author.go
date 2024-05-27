@@ -29,7 +29,7 @@ type AuthorWriter interface {
 type AuthorService struct {
 	reader AuthorReader
 	writer AuthorWriter
-	idGen  snowflake.SnowflakeIDGenerator
+	idGen  snowflake.IDGenerator
 	log    logger.Logger
 }
 
@@ -37,7 +37,7 @@ type AuthorService struct {
 func NewAuthorService(
 	reader AuthorReader,
 	writer AuthorWriter,
-	idGen snowflake.SnowflakeIDGenerator,
+	idGen snowflake.IDGenerator,
 	log logger.Logger,
 ) *AuthorService {
 	return &AuthorService{

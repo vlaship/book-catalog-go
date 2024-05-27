@@ -5,13 +5,13 @@ import (
 	"time"
 )
 
-// CacheInMem is a cache implementation.
-type CacheInMem struct {
+// InMemImpl is a cache implementation.
+type InMemImpl struct {
 	cache *cache.Cache
 }
 
 // GetDel pools a value from the cache.
-func (p *CacheInMem) GetDel(key string) (any, bool) {
+func (p *InMemImpl) GetDel(key string) (any, bool) {
 	value, ok := p.Get(key)
 	if !ok {
 		return nil, false
@@ -21,18 +21,18 @@ func (p *CacheInMem) GetDel(key string) (any, bool) {
 }
 
 // Get gets a value from the cache.
-func (p *CacheInMem) Get(key string) (value any, ok bool) {
+func (p *InMemImpl) Get(key string) (value any, ok bool) {
 	return p.cache.Get(key)
 }
 
 // Put sets a value in the cache.
-func (p *CacheInMem) Put(key string, value any, ttl time.Duration) {
+func (p *InMemImpl) Put(key string, value any, ttl time.Duration) {
 	p.cache.Set(key, value, ttl)
 }
 
 // New creates a new cache instance.
 func New() Cache {
-	return &CacheInMem{
+	return &InMemImpl{
 		cache: cache.New(cache.NoExpiration, cache.NoExpiration),
 	}
 }

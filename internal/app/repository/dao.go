@@ -56,7 +56,7 @@ func getOne[T model.Entity](
 
 	res, err := pgx.CollectOneRow(rows, func(row pgx.CollectableRow) (T, error) {
 		var t T
-		if err = row.Scan(req.destinations(&t)...); err != nil {
+		if err := row.Scan(req.destinations(&t)...); err != nil {
 			return t, err
 		}
 		return t, nil
@@ -94,7 +94,7 @@ func getAll[T model.Entity](
 
 	entities, err := pgx.CollectRows(rows, func(row pgx.CollectableRow) (T, error) {
 		var t T
-		if err = row.Scan(req.destinations(&t)...); err != nil {
+		if err := row.Scan(req.destinations(&t)...); err != nil {
 			return t, err
 		}
 		return t, nil
