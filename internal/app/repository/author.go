@@ -42,8 +42,8 @@ const (
 	FROM catalog.authors WHERE author_id = $1 AND deleted = FALSE;
 `
 	insertAuthor = `
-	INSERT INTO catalog.authors (author_name, author_dob)
-	VALUES ($1, $2)
+	INSERT INTO catalog.authors (author_id, author_name, author_dob)
+	VALUES ($1, $2, $3)
 	RETURNING author_id;
 `
 	updateAuthor = `
@@ -60,7 +60,7 @@ const (
 func (r *AuthorRepository) GetAuthors(ctx context.Context) ([]model.Author, error) {
 	r.log.Trc().Ctx(ctx).Msg("GetAuthors")
 
-	req := getEntity[model.Author]{
+	req := entity[model.Author]{
 		query:      getAuthors,
 		entityName: entityNameAuthor,
 		destinations: func(author *model.Author) []any {
@@ -79,7 +79,7 @@ func (r *AuthorRepository) GetAuthors(ctx context.Context) ([]model.Author, erro
 func (r *AuthorRepository) GetAuthor(ctx context.Context, authorID types.ID) (*model.Author, error) {
 	r.log.Dbg().Ctx(ctx).Values("authorID", authorID).Msg("GetAuthor")
 
-	req := getEntity[model.Author]{
+	req := entity[model.Author]{
 		query:      getAuthorByID,
 		entityName: entityNameAuthor,
 		args:       []any{authorID},
@@ -99,13 +99,11 @@ func (r *AuthorRepository) GetAuthor(ctx context.Context, authorID types.ID) (*m
 func (r *AuthorRepository) CreateAuthor(ctx context.Context, author *model.Author) (*model.Author, error) {
 	r.log.Dbg().Ctx(ctx).Values("Author", author).Msg("CreateAuthor")
 
-	req := createEntity[model.Author]{
-		getEntity: getEntity[model.Author]{
-			query:        insertAuthor,
-			entityName:   entityNameAuthor,
-			args:         []any{author.Name, author.Dob},
-			destinations: func(author *model.Author) []any { return []any{&author.ID} },
-		},
+	req := entity[model.Author]{
+		query:        insertAuthor,
+		entityName:   entityNameAuthor,
+		args:         []any{author.ID, author.Name, author.Dob},
+		destinations: func(author *model.Author) []any { return []any{&author.ID} },
 	}
 
 	return create(ctx, r, req)

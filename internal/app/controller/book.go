@@ -142,7 +142,7 @@ func (ctrl *BookController) GetBook(w http.ResponseWriter, r *http.Request) erro
 func (ctrl *BookController) CreateBook(w http.ResponseWriter, r *http.Request) error {
 	ctrl.log.Trc().Ctx(r.Context()).Msg("CreateBook")
 
-	req, err := ctrl.unmarshalCreate(w, r)
+	req, err := decode(w, r, &request.CreateBook{}, ctrl.valid)
 	if err != nil {
 		return err
 	}
@@ -177,7 +177,7 @@ func (ctrl *BookController) UpdateBook(w http.ResponseWriter, r *http.Request) e
 		return err
 	}
 
-	req, err := ctrl.unmarshalUpdate(w, r)
+	req, err := decode(w, r, &request.UpdateBook{}, ctrl.valid)
 	if err != nil {
 		return err
 	}
@@ -220,43 +220,4 @@ func (ctrl *BookController) DeleteBook(w http.ResponseWriter, r *http.Request) e
 	w.WriteHeader(http.StatusOK)
 
 	return nil
-}
-
-func (ctrl *BookController) unmarshalCreate(
-	w http.ResponseWriter,
-	r *http.Request,
-) (*request.CreateBook, error) {
-	ctrl.log.Trc().Msg(unmarshalRequest)
-
-	var req = &request.CreateBook{}
-	res, err := decode(w, r, req)
-	if err != nil {
-		ctrl.log.Err(err).Msg(unmarshalRequest)
-		return nil, err
-	}
-
-	if err = validate(req, ctrl.valid); err != nil {
-		return nil, err
-	}
-
-	return res, nil
-}
-func (ctrl *BookController) unmarshalUpdate(
-	w http.ResponseWriter,
-	r *http.Request,
-) (*request.UpdateBook, error) {
-	ctrl.log.Trc().Msg(unmarshalRequest)
-
-	var req = &request.UpdateBook{}
-	res, err := decode(w, r, req)
-	if err != nil {
-		ctrl.log.Err(err).Msg(unmarshalRequest)
-		return nil, err
-	}
-
-	if err = validate(req, ctrl.valid); err != nil {
-		return nil, err
-	}
-
-	return res, nil
 }

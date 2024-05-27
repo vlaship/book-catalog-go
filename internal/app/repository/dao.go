@@ -16,14 +16,15 @@ type Repo interface {
 	p() database.ConnPool
 }
 
+// execRequest is a struct for exec request
 type execRequest struct {
 	query      string
 	entityName string
 	args       []any
 }
 
-// getEntity is a struct for get one/all request
-type getEntity[T model.Entity] struct {
+// entity is a struct for get one/all request
+type entity[T model.Entity] struct {
 	query        string
 	entityName   string
 	args         []any
@@ -35,14 +36,10 @@ type getProperty[T model.Property] struct {
 	propertyName string
 }
 
-type createEntity[T model.Entity] struct {
-	getEntity[T]
-}
-
 func getOne[T model.Entity](
 	ctx context.Context,
 	r Repo,
-	req getEntity[T],
+	req entity[T],
 ) (*T, error) {
 	tx, err := r.p().Begin(ctx)
 	if err != nil {
@@ -59,7 +56,7 @@ func getOne[T model.Entity](
 
 	res, err := pgx.CollectOneRow(rows, func(row pgx.CollectableRow) (T, error) {
 		var t T
-		if err := row.Scan(req.destinations(&t)...); err != nil {
+		if err = row.Scan(req.destinations(&t)...); err != nil {
 			return t, err
 		}
 		return t, nil
@@ -69,7 +66,7 @@ func getOne[T model.Entity](
 		return nil, database.GetErrorByCode(err)
 	}
 
-	if err := tx.Commit(ctx); err != nil {
+	if err = tx.Commit(ctx); err != nil {
 		r.l().Err(err).Ctx(ctx).Msg(database.FailedCommitTransaction)
 		return nil, database.GetErrorByCode(err)
 	}
@@ -80,7 +77,7 @@ func getOne[T model.Entity](
 func getAll[T model.Entity](
 	ctx context.Context,
 	r Repo,
-	req getEntity[T],
+	req entity[T],
 ) ([]T, error) {
 	tx, err := r.p().Begin(ctx)
 	if err != nil {
@@ -97,7 +94,7 @@ func getAll[T model.Entity](
 
 	entities, err := pgx.CollectRows(rows, func(row pgx.CollectableRow) (T, error) {
 		var t T
-		if err := row.Scan(req.destinations(&t)...); err != nil {
+		if err = row.Scan(req.destinations(&t)...); err != nil {
 			return t, err
 		}
 		return t, nil
@@ -107,7 +104,7 @@ func getAll[T model.Entity](
 		return nil, database.GetErrorByCode(err)
 	}
 
-	if err := tx.Commit(ctx); err != nil {
+	if err = tx.Commit(ctx); err != nil {
 		r.l().Err(err).Ctx(ctx).Msg(database.FailedCommitTransaction)
 		return nil, database.GetErrorByCode(err)
 	}
@@ -118,7 +115,7 @@ func getAll[T model.Entity](
 func create[T model.Entity](
 	ctx context.Context,
 	r Repo,
-	req createEntity[T],
+	req entity[T],
 ) (*T, error) {
 	tx, err := r.p().Begin(ctx)
 	if err != nil {
@@ -128,12 +125,12 @@ func create[T model.Entity](
 	defer tx.Rollback(ctx)
 
 	var t T
-	if err := tx.QueryRow(ctx, req.query, req.args...).Scan(req.destinations(&t)...); err != nil {
+	if err = tx.QueryRow(ctx, req.query, req.args...).Scan(req.destinations(&t)...); err != nil {
 		r.l().Wrn().Err(err).Ctx(ctx).Msg("failed to create %s", req.entityName)
 		return nil, database.GetErrorByCode(err)
 	}
 
-	if err := tx.Commit(ctx); err != nil {
+	if err = tx.Commit(ctx); err != nil {
 		r.l().Err(err).Ctx(ctx).Msg(database.FailedCommitTransaction)
 		return nil, database.GetErrorByCode(err)
 	}
@@ -163,11 +160,11 @@ func exec(
 		return database.GetErrorByCode(err)
 	}
 
-	if err := database.CheckAffectedRows(tag); err != nil {
+	if err = database.CheckAffectedRows(tag); err != nil {
 		return database.GetErrorByCode(err)
 	}
 
-	if err := tx.Commit(ctx); err != nil {
+	if err = tx.Commit(ctx); err != nil {
 		r.l().Err(err).Ctx(ctx).Msg(database.FailedCommitTransaction)
 		return database.GetErrorByCode(err)
 	}

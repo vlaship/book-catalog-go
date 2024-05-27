@@ -13,6 +13,7 @@ import (
 	"book-catalog/internal/httphandling"
 	"book-catalog/internal/logger"
 	"book-catalog/internal/router"
+	"book-catalog/internal/snowflake"
 	"book-catalog/internal/template"
 	"book-catalog/internal/validation"
 
@@ -61,9 +62,16 @@ func NewApp(cfg *config.Config, log logger.Logger) (*App, error) {
 	log.Trc().Msg("init cache")
 	caches := cache.New()
 
+	// init ID generator
+	log.Trc().Msg("init ID generator")
+	idGen, err := snowflake.New(cfg.SnowflakeNode)
+	if err != nil {
+		return nil, err
+	}
+
 	// init services
 	log.Trc().Msg("init services")
-	services := service.Wire(cfg, repos, authenticator, templates, sender, caches, log)
+	services := service.Wire(cfg, repos, authenticator, templates, sender, caches, idGen, log)
 
 	// init facades
 	log.Trc().Msg("init facades")

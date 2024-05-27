@@ -36,19 +36,6 @@ func (d *Decimal) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// NewDecimal creates a new Money
-func NewDecimal(d *decimal.Decimal) *Decimal {
-	if d == nil {
-		return nil
-	}
-	return &Decimal{Decimal: *d}
-}
-
-// NewDecimalFrom creates a new Money from float64
-func NewDecimalFrom(d decimal.Decimal) Decimal {
-	return Decimal{Decimal: d}
-}
-
 // PositiveDecimal is a custom type for positive decimal
 type PositiveDecimal struct {
 	Value decimal.Decimal // todo: `validate:"dec-positive"`

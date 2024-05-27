@@ -20,22 +20,22 @@ const (
 
 const (
 	getBooks = `
-	SELECT book_id, book_title, book_description, book_isbn, book_author_id, book_price
+	SELECT book_id, book_title, book_desc, book_isbn, author_id, book_price
 	FROM catalog.books
 	WHERE deleted = FALSE;
 `
 	getBookByID = `
-	SELECT book_id, book_title, book_description, book_isbn, book_author_id, book_price
+	SELECT book_id, book_title, book_desc, book_isbn, author_id, book_price
 	FROM catalog.books
 	WHERE book_id = $1 AND deleted = FALSE;
 `
 	updateBookByID = `
-	UPDATE catalog.books SET book_title = $2, book_description = $3, book_isbn = $4, book_author_id = $5, book_price = $6
+	UPDATE catalog.books SET book_title = $2, book_desc = $3, book_isbn = $4, author_id = $5, book_price = $6
 	WHERE book_id = $1 AND deleted = FALSE;
 `
 	insertBook = `
-	INSERT INTO catalog.books (book_title, book_description, book_isbn, book_author_id, book_price)
-	VALUES ($1, $2, $3, $4, $5)
+	INSERT INTO catalog.books (book_id, book_title, book_desc, book_isbn, author_id, book_price)
+	VALUES ($1, $2, $3, $4, $5, $6)
 	RETURNING book_id;
 `
 	deleteBookByID = `
@@ -63,7 +63,7 @@ func (r *BookRepository) p() database.ConnPool {
 func (r *BookRepository) GetBooks(ctx context.Context) ([]model.Book, error) {
 	r.log.Trc().Ctx(ctx).Msg("GetBooks")
 
-	req := getEntity[model.Book]{
+	req := entity[model.Book]{
 		query:      getBooks,
 		entityName: entityNameBook,
 		destinations: func(book *model.Book) []any {
@@ -85,7 +85,7 @@ func (r *BookRepository) GetBooks(ctx context.Context) ([]model.Book, error) {
 func (r *BookRepository) GetBook(ctx context.Context, bookID types.ID) (*model.Book, error) {
 	r.log.Dbg().Ctx(ctx).Values("bookID", bookID).Msg("GetBook")
 
-	req := getEntity[model.Book]{
+	req := entity[model.Book]{
 		query:      getBookByID,
 		entityName: entityNameBook,
 		args:       []any{bookID},
@@ -108,18 +108,18 @@ func (r *BookRepository) GetBook(ctx context.Context, bookID types.ID) (*model.B
 func (r *BookRepository) CreateBook(ctx context.Context, book *model.Book) (*model.Book, error) {
 	r.log.Dbg().Ctx(ctx).Values("book", book).Msg("CreateBook")
 
-	req := createEntity[model.Book]{
-		getEntity: getEntity[model.Book]{
-			query:      insertBook,
-			entityName: entityNameBook,
-			args: []any{
-				book.Title,
-				book.Description,
-				book.ISBN,
-				book.AuthorID,
-				book.Price,
-			},
-			destinations: func(book *model.Book) []any { return []any{&book.ID} }},
+	req := entity[model.Book]{
+		query:      insertBook,
+		entityName: entityNameBook,
+		args: []any{
+			book.ID,
+			book.Title,
+			book.Description,
+			book.ISBN,
+			book.AuthorID,
+			book.Price,
+		},
+		destinations: func(book *model.Book) []any { return []any{&book.ID} },
 	}
 
 	return create(ctx, r, req)

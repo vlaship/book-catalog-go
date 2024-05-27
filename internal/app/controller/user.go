@@ -93,7 +93,7 @@ func (ctrl *UserController) GetUser(w http.ResponseWriter, r *http.Request) erro
 func (ctrl *UserController) UpdateInfo(w http.ResponseWriter, r *http.Request) error {
 	ctrl.log.Trc().Ctx(r.Context()).Msg("UpdateInfo")
 
-	req, err := ctrl.unmarshal(w, r)
+	req, err := decode(w, r, &request.UserData{}, ctrl.valid)
 	if err != nil {
 		return err
 	}
@@ -105,21 +105,4 @@ func (ctrl *UserController) UpdateInfo(w http.ResponseWriter, r *http.Request) e
 	w.WriteHeader(http.StatusOK)
 
 	return nil
-}
-
-func (ctrl *UserController) unmarshal(w http.ResponseWriter, r *http.Request) (*request.UserData, error) {
-	ctrl.log.Trc().Ctx(r.Context()).Msg("unmarshal")
-
-	var req = request.UserData{}
-	res, err := decode(w, r, &req)
-	if err != nil {
-		ctrl.log.Err(err).Msg(unmarshalRequest)
-		return nil, err
-	}
-
-	if err = validate(req, ctrl.valid); err != nil {
-		return nil, err
-	}
-
-	return res, nil
 }

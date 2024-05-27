@@ -140,7 +140,7 @@ func (ctrl *AuthorController) GetAuthor(w http.ResponseWriter, r *http.Request) 
 func (ctrl *AuthorController) CreateAuthor(w http.ResponseWriter, r *http.Request) error {
 	ctrl.log.Trc().Ctx(r.Context()).Msg("CreateAuthorReq")
 
-	req, err := ctrl.unmarshalCreate(w, r)
+	req, err := decode(w, r, &request.CreateAuthor{}, ctrl.valid)
 	if err != nil {
 		return err
 	}
@@ -176,7 +176,7 @@ func (ctrl *AuthorController) UpdateAuthor(w http.ResponseWriter, r *http.Reques
 	if err != nil {
 		return err
 	}
-	req, err := ctrl.unmarshalUpdate(w, r)
+	req, err := decode(w, r, &request.UpdateAuthor{}, ctrl.valid)
 	if err != nil {
 		return err
 	}
@@ -219,42 +219,4 @@ func (ctrl *AuthorController) DeleteAuthor(w http.ResponseWriter, r *http.Reques
 	w.WriteHeader(http.StatusOK)
 
 	return nil
-}
-
-func (ctrl *AuthorController) unmarshalCreate(
-	w http.ResponseWriter,
-	r *http.Request,
-) (*request.CreateAuthor, error) {
-	ctrl.log.Trc().Msg(unmarshalRequest)
-
-	req, err := decode(w, r, &request.CreateAuthor{})
-	if err != nil {
-		ctrl.log.Err(err).Msg(unmarshalRequest)
-		return nil, err
-	}
-
-	if err := validate(req, ctrl.valid); err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-func (ctrl *AuthorController) unmarshalUpdate(
-	w http.ResponseWriter,
-	r *http.Request,
-) (*request.UpdateAuthor, error) {
-	ctrl.log.Trc().Msg(unmarshalRequest)
-
-	req, err := decode(w, r, &request.UpdateAuthor{})
-	if err != nil {
-		ctrl.log.Err(err).Msg(unmarshalRequest)
-		return nil, err
-	}
-
-	if err = validate(req, ctrl.valid); err != nil {
-		return nil, err
-	}
-
-	return req, nil
 }

@@ -9,6 +9,7 @@ import (
 	"book-catalog/internal/config"
 	"book-catalog/internal/email"
 	"book-catalog/internal/logger"
+	"book-catalog/internal/snowflake"
 	"book-catalog/internal/template"
 	"github.com/google/wire"
 )
@@ -20,6 +21,7 @@ func Wire(
 	templates template.Templates,
 	sender email.Sender,
 	cacher cache.Cache,
+	idGen snowflake.SnowflakeIDGenerator,
 	log logger.Logger,
 ) *Services {
 	wire.Build(

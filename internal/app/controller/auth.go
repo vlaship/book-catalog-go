@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"book-catalog/internal/app/dto"
 	"book-catalog/internal/app/dto/request"
 	"book-catalog/internal/app/dto/response"
 	"book-catalog/internal/httphandling"
@@ -98,7 +97,7 @@ func (ctrl *AuthController) RegisterRoutes(router chi.Router) {
 func (ctrl *AuthController) Signin(w http.ResponseWriter, r *http.Request) error {
 	ctrl.log.Trc().Ctx(r.Context()).Msg("Signin")
 
-	req, err := decodeAuth(w, r, request.Signin{}, ctrl.valid)
+	req, err := decode(w, r, &request.Signin{}, ctrl.valid)
 	if err != nil {
 		return err
 	}
@@ -124,7 +123,7 @@ func (ctrl *AuthController) Signin(w http.ResponseWriter, r *http.Request) error
 func (ctrl *AuthController) Signup(w http.ResponseWriter, r *http.Request) error {
 	ctrl.log.Trc().Ctx(r.Context()).Msg("Signup")
 
-	req, err := decodeAuth(w, r, request.Signup{}, ctrl.valid)
+	req, err := decode(w, r, &request.Signup{}, ctrl.valid)
 	if err != nil {
 		return err
 	}
@@ -148,7 +147,7 @@ func (ctrl *AuthController) Signup(w http.ResponseWriter, r *http.Request) error
 func (ctrl *AuthController) Activate(w http.ResponseWriter, r *http.Request) error {
 	ctrl.log.Trc().Ctx(r.Context()).Msg("Activate")
 
-	req, err := decodeAuth(w, r, request.Activation{}, ctrl.valid)
+	req, err := decode(w, r, &request.Activation{}, ctrl.valid)
 	if err != nil {
 		return err
 	}
@@ -172,7 +171,7 @@ func (ctrl *AuthController) Activate(w http.ResponseWriter, r *http.Request) err
 func (ctrl *AuthController) Resend(w http.ResponseWriter, r *http.Request) error {
 	ctrl.log.Trc().Ctx(r.Context()).Msg("Resend")
 
-	req, err := decodeAuth(w, r, request.ResendActivation{}, ctrl.valid)
+	req, err := decode(w, r, &request.ResendActivation{}, ctrl.valid)
 	if err != nil {
 		return err
 	}
@@ -197,7 +196,7 @@ func (ctrl *AuthController) Resend(w http.ResponseWriter, r *http.Request) error
 func (ctrl *AuthController) Reset(w http.ResponseWriter, r *http.Request) error {
 	ctrl.log.Trc().Ctx(r.Context()).Msg("Reset")
 
-	req, err := decodeAuth(w, r, request.ResetPassword{}, ctrl.valid)
+	req, err := decode(w, r, &request.ResetPassword{}, ctrl.valid)
 	if err != nil {
 		return err
 	}
@@ -222,7 +221,7 @@ func (ctrl *AuthController) Reset(w http.ResponseWriter, r *http.Request) error 
 func (ctrl *AuthController) Replace(w http.ResponseWriter, r *http.Request) error {
 	ctrl.log.Trc().Ctx(r.Context()).Msg("Replace")
 
-	req, err := decodeAuth(w, r, request.ReplacePassword{}, ctrl.valid)
+	req, err := decode(w, r, &request.ReplacePassword{}, ctrl.valid)
 	if err != nil {
 		return err
 	}
@@ -234,22 +233,4 @@ func (ctrl *AuthController) Replace(w http.ResponseWriter, r *http.Request) erro
 	w.WriteHeader(http.StatusOK)
 
 	return nil
-}
-
-func decodeAuth[T dto.Auth](
-	w http.ResponseWriter,
-	r *http.Request,
-	req T,
-	valid validation.Validator,
-) (*T, error) {
-	res, err := decode(w, r, &req)
-	if err != nil {
-		return nil, err
-	}
-
-	if err = validate(req, valid); err != nil {
-		return nil, err
-	}
-
-	return res, nil
 }

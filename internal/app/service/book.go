@@ -4,6 +4,7 @@ import (
 	"book-catalog/internal/app/model"
 	"book-catalog/internal/app/types"
 	"book-catalog/internal/logger"
+	"book-catalog/internal/snowflake"
 	"context"
 )
 
@@ -28,6 +29,7 @@ type BookWriter interface {
 type BookService struct {
 	reader BookReader
 	writer BookWriter
+	idGen  snowflake.SnowflakeIDGenerator
 	log    logger.Logger
 }
 
@@ -35,11 +37,13 @@ type BookService struct {
 func NewBookService(
 	reader BookReader,
 	writer BookWriter,
+	idGen snowflake.SnowflakeIDGenerator,
 	log logger.Logger,
 ) *BookService {
 	return &BookService{
 		reader: reader,
 		writer: writer,
+		idGen:  idGen,
 		log:    log.New("BookService"),
 	}
 }
@@ -61,6 +65,8 @@ func (s *BookService) GetBooks(ctx context.Context) ([]model.Book, error) {
 // CreateBook creates new book
 func (s *BookService) CreateBook(ctx context.Context, book *model.Book) (*model.Book, error) {
 	s.log.Dbg().Ctx(ctx).Values("book", book).Msg("CreateBook")
+
+	book.ID = types.ID(s.idGen.Generate())
 
 	return s.writer.CreateBook(ctx, book)
 }

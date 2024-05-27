@@ -5,6 +5,7 @@ import (
 	"book-catalog/internal/app/types"
 	"book-catalog/internal/apperr"
 	"book-catalog/internal/logger"
+	"book-catalog/internal/snowflake"
 	"book-catalog/pkg/utils/mask"
 	"context"
 	"errors"
@@ -32,6 +33,7 @@ type AuthService struct {
 	writer UserWriter
 	auth   Authenticator
 	pass   PasswordHandler
+	idGen  snowflake.SnowflakeIDGenerator
 	log    logger.Logger
 }
 
@@ -41,6 +43,7 @@ func NewAuthService(
 	writer UserWriter,
 	auth Authenticator,
 	pass PasswordHandler,
+	idGen snowflake.SnowflakeIDGenerator,
 	log logger.Logger,
 ) *AuthService {
 	return &AuthService{
@@ -48,6 +51,7 @@ func NewAuthService(
 		writer: writer,
 		auth:   auth,
 		pass:   pass,
+		idGen:  idGen,
 		log:    log.New("AuthService"),
 	}
 }
@@ -61,7 +65,7 @@ func (s *AuthService) Signin(ctx context.Context, req model.User) (*model.Signin
 		s.log.Wrn().Err(err).Ctx(ctx).Msg("GetUserByUsername")
 		return nil, apperr.ErrUnauthorized
 	}
-	if err := s.pass.Validate(req.Password, user.Password); err != nil {
+	if err = s.pass.Validate(req.Password, user.Password); err != nil {
 		s.log.Wrn().Err(err).Ctx(ctx).Msg("validatePassword")
 		return nil, apperr.ErrUnauthorized
 	}
@@ -93,6 +97,8 @@ func (s *AuthService) Signup(ctx context.Context, input model.User) (*model.User
 		return nil, apperr.ErrInternalServerError
 	}
 	input.Password = hash
+
+	input.ID = types.UserID(s.idGen.Generate())
 
 	user, err := s.writer.Create(ctx, input)
 	if err != nil {

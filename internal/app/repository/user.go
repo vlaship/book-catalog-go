@@ -42,8 +42,8 @@ const (
 	WHERE user_id = $1 AND deleted = FALSE;
 `
 	userCreate = `
-	INSERT INTO catalog.users (username, password, user_data)
-	VALUES ($1, $2, $3)
+	INSERT INTO catalog.users (user_id, username, password, user_data)
+	VALUES ($1, $2, $3, $4)
 	RETURNING user_id, username, user_data;
 `
 	userUpdateStatus = `
@@ -66,7 +66,7 @@ const (
 func (r *UserRepository) GetUserByUsername(ctx context.Context, username types.Username) (*model.User, error) {
 	r.log.Dbg().Ctx(ctx).Values("username", mask.String(string(username))).Msg("GetUserByUsername")
 
-	req := getEntity[model.User]{
+	req := entity[model.User]{
 		query:      userGetByUsername,
 		entityName: "user",
 		args:       []any{r.lower(username)},
@@ -87,7 +87,7 @@ func (r *UserRepository) GetUserByUsername(ctx context.Context, username types.U
 func (r *UserRepository) GetUserByID(ctx context.Context, userID types.UserID) (*model.User, error) {
 	r.log.Dbg().Ctx(ctx).Values("userID", userID).Msg("GetUserBySignin")
 
-	req := getEntity[model.User]{
+	req := entity[model.User]{
 		query:      userGetByID,
 		entityName: "user",
 		args:       []any{userID},
@@ -108,22 +108,22 @@ func (r *UserRepository) GetUserByID(ctx context.Context, userID types.UserID) (
 func (r *UserRepository) Create(ctx context.Context, input model.User) (*model.User, error) {
 	r.log.Dbg().Ctx(ctx).Values("username", mask.String(string(input.Username))).Msg("CreateUser")
 
-	req := createEntity[model.User]{
-		getEntity: getEntity[model.User]{
-			query:      userCreate,
-			entityName: entityNameUser,
-			args: []any{
-				r.lower(input.Username),
-				input.Password,
-				input.Data,
-			},
-			destinations: func(output *model.User) []any {
-				return []any{
-					&output.ID,
-					&output.Username,
-					&output.Data,
-				}
-			}},
+	req := entity[model.User]{
+		query:      userCreate,
+		entityName: entityNameUser,
+		args: []any{
+			input.ID,
+			r.lower(input.Username),
+			input.Password,
+			input.Data,
+		},
+		destinations: func(output *model.User) []any {
+			return []any{
+				&output.ID,
+				&output.Username,
+				&output.Data,
+			}
+		},
 	}
 
 	return create(ctx, r, req)

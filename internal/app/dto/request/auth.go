@@ -14,7 +14,7 @@ type Signin struct {
 
 // String
 func (s *Signin) String() string {
-	return fmt.Sprintf("Username{Username: %s, Password: %s}", mask.String(s.Username.String()), mask.String(s.Password.String()))
+	return fmt.Sprintf("Signin{Username: %s, Password: %s}", mask.String(s.Username.String()), mask.String(s.Password.String()))
 }
 
 // Signup request
@@ -27,7 +27,7 @@ type Signup struct {
 
 // String
 func (s *Signup) String() string {
-	return fmt.Sprintf("Username{Username: %s, Password: %s}", mask.String(s.Username.String()), mask.String(s.Password.String()))
+	return fmt.Sprintf("Signup{Username: %s, Password: %s}", mask.String(s.Username.String()), mask.String(s.Password.String()))
 }
 
 // Activation request

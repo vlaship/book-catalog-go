@@ -47,7 +47,7 @@ func getProperties[T model.Property](
 	q getProperty[T],
 ) (*T, error) {
 
-	req := getEntity[T]{
+	req := entity[T]{
 		query:        getPropertiesQuery,
 		entityName:   q.propertyName,
 		args:         []any{q.propertyName},

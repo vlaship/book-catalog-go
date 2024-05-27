@@ -80,19 +80,14 @@ func decode[T dto.Request](
 	w http.ResponseWriter,
 	r *http.Request,
 	req *T,
+	v validation.Validator,
 ) (*T, error) {
 	if err := decoder.Decode(w, r, req); err != nil {
 		return nil, err
 	}
-
-	return req, nil
-}
-
-// validate is a helper function to validate request
-func validate(req any, v validation.Validator) error {
 	if err := v.Struct(req); err != nil {
-		return apperr.ErrValidationRequest.WithFunc(apperr.WithDetail(err.Error()))
+		return nil, apperr.ErrValidationRequest.WithFunc(apperr.WithDetail(err.Error()))
 	}
 
-	return nil
+	return req, nil
 }
