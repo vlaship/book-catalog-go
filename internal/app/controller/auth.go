@@ -117,7 +117,7 @@ func (ctrl *AuthController) Signin(w http.ResponseWriter, r *http.Request) error
 // @Accept  json
 // @Produce  json
 // @Param signup body request.Signup true "Signup"
-// @Success 201 "Created"
+// @Success 200 "OK"
 // @Failure 400 {object} response.ProblemDetail
 // @Failure 500 {object} response.ProblemDetail
 // @Router /v1/auth/signup [post]
@@ -141,7 +141,7 @@ func (ctrl *AuthController) Signup(w http.ResponseWriter, r *http.Request) error
 // Activate
 // @Summary Activate Account
 // @Tags Authentication
-// @Success 200 "OK" "Accepted"
+// @Success 200 "OK"
 // @Failure 400 {object} response.ProblemDetail
 // @Failure 500 {object} response.ProblemDetail
 // @Router /v1/auth/activation/activate [post]
@@ -165,7 +165,7 @@ func (ctrl *AuthController) Activate(w http.ResponseWriter, r *http.Request) err
 // Resend
 // @Summary Resend Activation Mail
 // @Tags Authentication
-// @Success 200 "OK" "Accepted"
+// @Success 200 "OK"
 // @Failure 400 {object} response.ProblemDetail
 // @Failure 500 {object} response.ProblemDetail
 // @Router /v1/auth/activation/resend [post]
@@ -189,7 +189,7 @@ func (ctrl *AuthController) Resend(w http.ResponseWriter, r *http.Request) error
 // Reset
 // @Summary Reset Password
 // @Tags Authentication
-// @Success 200 "OK" "Accepted"
+// @Success 200 "OK"
 // @Failure 400 {object} response.ProblemDetail
 // @Failure 403 {object} response.ProblemDetail
 // @Failure 500 {object} response.ProblemDetail
@@ -214,7 +214,7 @@ func (ctrl *AuthController) Reset(w http.ResponseWriter, r *http.Request) error 
 // Replace
 // @Summary Replace Password
 // @Tags Authentication
-// @Success 200 "OK" "Accepted"
+// @Success 200 "OK"
 // @Failure 400 {object} response.ProblemDetail
 // @Failure 403 {object} response.ProblemDetail
 // @Failure 500 {object} response.ProblemDetail

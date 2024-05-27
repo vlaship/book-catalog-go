@@ -81,7 +81,7 @@ func (r *BookRepository) GetBooks(ctx context.Context) ([]model.Book, error) {
 	return getAll(ctx, r, req)
 }
 
-// GetBook get close book by user_id and book id
+// GetBook get book by ID
 func (r *BookRepository) GetBook(ctx context.Context, bookID types.ID) (*model.Book, error) {
 	r.log.Dbg().Ctx(ctx).Values("bookID", bookID).Msg("GetBook")
 

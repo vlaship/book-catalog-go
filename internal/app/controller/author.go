@@ -131,7 +131,7 @@ func (ctrl *AuthorController) GetAuthor(w http.ResponseWriter, r *http.Request) 
 // @Accept      json
 // @Produce      json
 // @Param author body request.CreateAuthor true "Author"
-// @Success 201 {object} response.Author
+// @Success 200 {object} response.Author
 // @Failure 400 {object} response.ProblemDetail
 // @Failure 401 {object} response.ProblemDetail
 // @Failure 403 {object} response.ProblemDetail

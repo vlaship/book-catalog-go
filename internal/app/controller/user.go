@@ -84,7 +84,7 @@ func (ctrl *UserController) GetUser(w http.ResponseWriter, r *http.Request) erro
 // @Security BearerAuth
 // @Accept  json
 // @Param user body request.UserData true "User"
-// @Success 200 "OK" "Accepted"
+// @Success 200 "OK"
 // @Failure 400 {object} response.ProblemDetail
 // @Failure 401 {object} response.ProblemDetail
 // @Failure 403 {object} response.ProblemDetail
