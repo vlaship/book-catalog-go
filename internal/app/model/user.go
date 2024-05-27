@@ -27,8 +27,8 @@ func (u *User) String() string {
 
 // UserData is a model for user info
 type UserData struct {
-	FirstName string     `json:"first_name,omitempty"`
-	LastName  string     `json:"last_name,omitempty"`
+	FirstName string     `json:"firstname,omitempty"`
+	LastName  string     `json:"lastname,omitempty"`
 	Email     string     `json:"email,omitempty"`
 	Plan      string     `json:"user_plan,omitempty"`
 	Status    UserStatus `json:"status,omitempty"`

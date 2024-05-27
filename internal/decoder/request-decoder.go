@@ -73,6 +73,6 @@ func handleDecodeError(err error) error {
 		return apperr.ErrDecodingRequest.WithFunc(apperr.WithDetail("Request body must not be larger than 1MB"))
 
 	default:
-		return err
+		return apperr.ErrDecodingRequest.WithFunc(apperr.WithDetail(err.Error()))
 	}
 }
