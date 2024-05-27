@@ -150,7 +150,7 @@ func (ctrl *AuthorController) CreateAuthor(w http.ResponseWriter, r *http.Reques
 		return addTitle(err, "Problem creating author")
 	}
 
-	w.WriteHeader(http.StatusCreated)
+	w.WriteHeader(http.StatusOK)
 
 	return encode(w, res)
 }

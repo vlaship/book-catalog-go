@@ -133,7 +133,7 @@ func (ctrl *AuthController) Signup(w http.ResponseWriter, r *http.Request) error
 		return addTitle(err, "Problem signing up")
 	}
 
-	w.WriteHeader(http.StatusCreated)
+	w.WriteHeader(http.StatusOK)
 
 	return nil
 }

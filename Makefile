@@ -45,7 +45,7 @@ mockery:
 	@go run github.com/vektra/mockery/v2@latest --keeptree --dir=internal/app --output=test/mocks --all --case=snake
 
 all-dl: deps-dl swaggo-dl mockgen-dl mockery-dl lint-dl
-	@echo "Downloaded and install all prerequisites"
+	@echo "Download and install all prerequisites"
 
 build-all: swaggo mockgen mockery
 	@echo "Building app"
