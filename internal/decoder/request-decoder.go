@@ -46,28 +46,25 @@ func Decode(w http.ResponseWriter, r *http.Request, dst any) error { //nolint:cy
 
 func handleDecodeError(err error) error {
 	var syntaxError *json.SyntaxError
-	var unmarshalTypeError *json.UnmarshalTypeError
+	var typeError *json.UnmarshalTypeError
 
 	switch {
 	case errors.As(err, &syntaxError):
-		return apperr.ErrDecodingRequest.WithFunc(
-			apperr.WithDetail(fmt.Sprintf("Request body contains badly-formed JSON (at position %d)", syntaxError.Offset)))
+		msg := fmt.Sprintf("Request body contains badly-formed JSON (at position %d)", syntaxError.Offset)
+		return apperr.ErrDecodingRequest.WithFunc(apperr.WithDetail(msg))
 
 	case errors.Is(err, io.ErrUnexpectedEOF):
 		return apperr.ErrDecodingRequest.WithFunc(apperr.WithDetail("Request body contains badly-formed JSON"))
 
-	case errors.As(err, &unmarshalTypeError):
-		return apperr.ErrDecodingRequest.WithFunc(
-			apperr.WithDetail(fmt.Sprintf(
-				"Request body contains an invalid value for the %q field (at position %d)",
-				unmarshalTypeError.Field,
-				unmarshalTypeError.Offset,
-			),
-			))
+	case errors.As(err, &typeError):
+		msg := fmt.Sprintf(
+			"Request body contains an invalid value for the %q field (at position %d)", typeError.Field, typeError.Offset)
+		return apperr.ErrDecodingRequest.WithFunc(apperr.WithDetail(msg))
 
 	case strings.HasPrefix(err.Error(), "json: unknown field "):
 		fieldName := strings.TrimPrefix(err.Error(), "json: unknown field ")
-		return apperr.ErrDecodingRequest.WithFunc(apperr.WithDetail(fmt.Sprintf("Request body contains unknown field %s", fieldName)))
+		msg := fmt.Sprintf("Request body contains unknown field %s", fieldName)
+		return apperr.ErrDecodingRequest.WithFunc(apperr.WithDetail(msg))
 
 	case errors.Is(err, io.EOF):
 		return apperr.ErrDecodingRequest.WithFunc(apperr.WithDetail("Request body must not be empty"))
