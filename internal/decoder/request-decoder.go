@@ -34,39 +34,7 @@ func Decode(w http.ResponseWriter, r *http.Request, dst any) error { //nolint:cy
 	dec := json.NewDecoder(r.Body)
 
 	if err := dec.Decode(&dst); err != nil {
-		var syntaxError *json.SyntaxError
-		var unmarshalTypeError *json.UnmarshalTypeError
-
-		switch {
-		case errors.As(err, &syntaxError):
-			return apperr.ErrDecodingRequest.WithFunc(
-				apperr.WithDetail(fmt.Sprintf("Request body contains badly-formed JSON (at position %d)", syntaxError.Offset)))
-
-		case errors.Is(err, io.ErrUnexpectedEOF):
-			return apperr.ErrDecodingRequest.WithFunc(apperr.WithDetail("Request body contains badly-formed JSON"))
-
-		case errors.As(err, &unmarshalTypeError):
-			return apperr.ErrDecodingRequest.WithFunc(
-				apperr.WithDetail(fmt.Sprintf(
-					"Request body contains an invalid value for the %q field (at position %d)",
-					unmarshalTypeError.Field,
-					unmarshalTypeError.Offset,
-				),
-				))
-
-		case strings.HasPrefix(err.Error(), "json: unknown field "):
-			fieldName := strings.TrimPrefix(err.Error(), "json: unknown field ")
-			return apperr.ErrDecodingRequest.WithFunc(apperr.WithDetail(fmt.Sprintf("Request body contains unknown field %s", fieldName)))
-
-		case errors.Is(err, io.EOF):
-			return apperr.ErrDecodingRequest.WithFunc(apperr.WithDetail("Request body must not be empty"))
-
-		case err.Error() == "http: request body too large":
-			return apperr.ErrDecodingRequest.WithFunc(apperr.WithDetail("Request body must not be larger than 1MB"))
-
-		default:
-			return err
-		}
+		return handleDecodeError(err)
 	}
 
 	if err := dec.Decode(&struct{}{}); err != io.EOF {
@@ -74,4 +42,40 @@ func Decode(w http.ResponseWriter, r *http.Request, dst any) error { //nolint:cy
 	}
 
 	return nil
+}
+
+func handleDecodeError(err error) error {
+	var syntaxError *json.SyntaxError
+	var unmarshalTypeError *json.UnmarshalTypeError
+
+	switch {
+	case errors.As(err, &syntaxError):
+		return apperr.ErrDecodingRequest.WithFunc(
+			apperr.WithDetail(fmt.Sprintf("Request body contains badly-formed JSON (at position %d)", syntaxError.Offset)))
+
+	case errors.Is(err, io.ErrUnexpectedEOF):
+		return apperr.ErrDecodingRequest.WithFunc(apperr.WithDetail("Request body contains badly-formed JSON"))
+
+	case errors.As(err, &unmarshalTypeError):
+		return apperr.ErrDecodingRequest.WithFunc(
+			apperr.WithDetail(fmt.Sprintf(
+				"Request body contains an invalid value for the %q field (at position %d)",
+				unmarshalTypeError.Field,
+				unmarshalTypeError.Offset,
+			),
+			))
+
+	case strings.HasPrefix(err.Error(), "json: unknown field "):
+		fieldName := strings.TrimPrefix(err.Error(), "json: unknown field ")
+		return apperr.ErrDecodingRequest.WithFunc(apperr.WithDetail(fmt.Sprintf("Request body contains unknown field %s", fieldName)))
+
+	case errors.Is(err, io.EOF):
+		return apperr.ErrDecodingRequest.WithFunc(apperr.WithDetail("Request body must not be empty"))
+
+	case err.Error() == "http: request body too large":
+		return apperr.ErrDecodingRequest.WithFunc(apperr.WithDetail("Request body must not be larger than 1MB"))
+
+	default:
+		return err
+	}
 }
