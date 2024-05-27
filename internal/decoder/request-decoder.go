@@ -8,8 +8,6 @@ import (
 	"io"
 	"net/http"
 	"strings"
-
-	"github.com/golang/gddo/httputil/header"
 )
 
 const (
@@ -21,7 +19,8 @@ const (
 // Decode is a helper function to decode JSON requests
 func Decode(w http.ResponseWriter, r *http.Request, dst any) error { //nolint:cyclop // it's ok
 	if r.Header.Get(headerContentType) != "" {
-		value, _ := header.ParseValueAndParams(r.Header, headerContentType)
+		// get content type fro header
+		value := r.Header.Get(headerContentType)
 		if value != applicationJSON {
 			return apperr.ErrUnsupportedMediaType.WithFunc(apperr.WithDetail(headerContentType + " header is not " + applicationJSON))
 		}
