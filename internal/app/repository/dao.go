@@ -24,7 +24,6 @@ type execRequest struct {
 
 // getEntity is a struct for get one/all request
 type getEntity[T model.Entity] struct {
-	//entity       T
 	query        string
 	entityName   string
 	args         []any
