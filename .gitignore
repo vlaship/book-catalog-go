@@ -1,0 +1,11 @@
+api/docs/
+test/mock/
+test/mocks/
+.reports/
+
+.idea/
+.vscode/
+*private.env*
+
+wire_gen.go
+*.exe

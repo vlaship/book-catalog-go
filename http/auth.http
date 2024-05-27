@@ -1,0 +1,58 @@
+### sign up
+POST {{url}}{{api}}/auth/signup
+X-Request-ID: {{$uuid}}
+Content-Type: application/json
+
+{
+  "username": "{{username}}",
+  "password": "{{password}}",
+  "firstname": "FirstName",
+  "lastname": "LastName"
+}
+
+### sign in
+POST {{url}}{{api}}/auth/signin
+X-Request-ID: {{$uuid}}
+Content-Type: application/json
+
+{
+  "username": "{{username}}",
+  "password": "{{password}}"
+}
+
+### activate user
+POST {{url}}{{api}}/auth/activation/activate
+X-Request-ID: {{$uuid}}
+Content-Type: application/json
+
+{
+  "otp": "{{otp}}"
+}
+
+### resend activation email
+POST {{url}}{{api}}/auth/activation/resend
+X-Request-ID: {{$uuid}}
+Content-Type: application/json
+
+{
+  "username": "{{username}}"
+}
+
+### reset password
+POST {{url}}{{api}}/auth/password/reset
+X-Request-ID: {{$uuid}}
+Content-Type: application/json
+
+{
+  "username": "{{username}}"
+}
+
+### change password
+POST {{url}}{{api}}/auth/password/replace
+X-Request-ID: {{$uuid}}
+Content-Type: application/json
+
+{
+  "otp": "{{otp}}",
+  "new_password": "{{password}}"
+}

@@ -1,0 +1,33 @@
+@id=1794945447949766656
+
+### create author
+POST {{url}}{{api}}/author
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "John Doe",
+  "dob": "1990-01-01"
+}
+
+### update author
+PUT {{url}}{{api}}/author/{{id}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "John Doe",
+  "dob": "1990-01-01"
+}
+
+### delete author
+DELETE {{url}}{{api}}/author/{{id}}
+Authorization: Bearer {{token}}
+
+### get author
+GET {{url}}{{api}}/author/{{id}}
+Authorization: Bearer {{token}}
+
+### get all authors
+GET {{url}}{{api}}/author
+Authorization: Bearer {{token}}

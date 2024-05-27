@@ -1,0 +1,39 @@
+@id=1794947157514522624
+
+### create book
+POST {{url}}{{api}}/book
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "title of book",
+  "description": "desc of book",
+  "author_id": 1794945447949766656,
+  "isbn": "ISBN-1234567890",
+  "price": 15.99
+}
+
+### update book
+PUT {{url}}{{api}}/book/{{id}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "title of book",
+  "description": "desc of book",
+  "author_id": 1794945447949766656,
+  "isbn": "ISBN-1234567890",
+  "price": 15.99
+}
+
+### delete book
+DELETE {{url}}{{api}}/book/{{id}}
+Authorization: Bearer {{token}}
+
+### get book
+GET {{url}}{{api}}/book/{{id}}
+Authorization: Bearer {{token}}
+
+### get all books
+GET {{url}}{{api}}/book
+Authorization: Bearer {{token}}
