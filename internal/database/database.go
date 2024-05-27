@@ -2,6 +2,7 @@ package database
 
 import (
 	"book-catalog/internal/apperr"
+	"database/sql"
 	"errors"
 	"github.com/jackc/pgx/v5/pgconn"
 )
@@ -17,9 +18,10 @@ func GetErrorByCode(err error) error {
 			return apperr.ErrNoFoundForeignKey
 		}
 	}
-	if err.Error() == "no rows in result set" {
+	if errors.Is(err, sql.ErrNoRows) {
 		return apperr.ErrNotFound
 	}
+
 	return err
 }
 
@@ -31,5 +33,6 @@ func CheckAffectedRows(tag pgconn.CommandTag) error {
 	if tag.RowsAffected() > 1 {
 		return apperr.ErrAffectedMoreThanOneRow
 	}
+
 	return nil
 }
