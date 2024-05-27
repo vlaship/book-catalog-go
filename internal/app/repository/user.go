@@ -64,7 +64,7 @@ const (
 
 // GetUserByUsername get user by username
 func (r *UserRepository) GetUserByUsername(ctx context.Context, username types.Username) (*model.User, error) {
-	r.log.Dbg().Ctx(ctx).Values("username", mask.String(string(username))).Msg("GetUserBySignin")
+	r.log.Dbg().Ctx(ctx).Values("username", mask.String(string(username))).Msg("GetUserByUsername")
 
 	req := getEntity[model.User]{
 		query:      userGetByUsername,
