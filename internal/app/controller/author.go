@@ -89,7 +89,7 @@ func (ctrl *AuthorController) GetAuthors(w http.ResponseWriter, r *http.Request)
 
 	res, err := ctrl.reader.GetAuthors(r.Context())
 	if err != nil {
-		return addTitle(err, "Problem getting Authors")
+		return addTitle(err, "Problem getting authors")
 	}
 
 	return encode(w, res)
@@ -118,7 +118,7 @@ func (ctrl *AuthorController) GetAuthor(w http.ResponseWriter, r *http.Request) 
 
 	res, err := ctrl.reader.GetAuthor(r.Context(), authorID)
 	if err != nil {
-		return addTitle(err, "Problem getting Author")
+		return addTitle(err, "Problem getting author")
 	}
 
 	return encode(w, res)
@@ -147,7 +147,7 @@ func (ctrl *AuthorController) CreateAuthor(w http.ResponseWriter, r *http.Reques
 
 	res, err := ctrl.writer.CreateAuthor(r.Context(), req)
 	if err != nil {
-		return addTitle(err, "Problem creating Author")
+		return addTitle(err, "Problem creating author")
 	}
 
 	w.WriteHeader(http.StatusCreated)
@@ -183,7 +183,7 @@ func (ctrl *AuthorController) UpdateAuthor(w http.ResponseWriter, r *http.Reques
 
 	err = ctrl.writer.UpdateAuthor(r.Context(), authorID, req)
 	if err != nil {
-		return addTitle(err, "Problem updating Author")
+		return addTitle(err, "Problem updating author")
 	}
 
 	w.WriteHeader(http.StatusOK)
@@ -213,7 +213,7 @@ func (ctrl *AuthorController) DeleteAuthor(w http.ResponseWriter, r *http.Reques
 
 	err = ctrl.writer.DeleteAuthor(r.Context(), authorID)
 	if err != nil {
-		return addTitle(err, "Problem deleting Author")
+		return addTitle(err, "Problem deleting author")
 	}
 
 	w.WriteHeader(http.StatusOK)

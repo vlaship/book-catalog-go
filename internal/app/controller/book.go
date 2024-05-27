@@ -89,7 +89,7 @@ func (ctrl *BookController) GetBooks(w http.ResponseWriter, r *http.Request) err
 
 	res, err := ctrl.reader.GetBooks(r.Context())
 	if err != nil {
-		return addTitle(err, "Problem getting Books")
+		return addTitle(err, "Problem getting books")
 	}
 
 	return encode(w, res)
@@ -118,7 +118,7 @@ func (ctrl *BookController) GetBook(w http.ResponseWriter, r *http.Request) erro
 
 	res, err := ctrl.reader.GetBook(r.Context(), bookID)
 	if err != nil {
-		return addTitle(err, "Problem getting Book")
+		return addTitle(err, "Problem getting book")
 	}
 
 	return encode(w, res)
@@ -149,7 +149,7 @@ func (ctrl *BookController) CreateBook(w http.ResponseWriter, r *http.Request) e
 
 	resp, err := ctrl.writer.CreateBook(r.Context(), req)
 	if err != nil {
-		return addTitle(err, "Problem creating Book")
+		return addTitle(err, "Problem creating book")
 	}
 
 	return encode(w, resp)
@@ -184,7 +184,7 @@ func (ctrl *BookController) UpdateBook(w http.ResponseWriter, r *http.Request) e
 
 	err = ctrl.writer.UpdateBook(r.Context(), bookID, req)
 	if err != nil {
-		return addTitle(err, "Problem updating Book")
+		return addTitle(err, "Problem updating book")
 	}
 
 	w.WriteHeader(http.StatusOK)
@@ -214,7 +214,7 @@ func (ctrl *BookController) DeleteBook(w http.ResponseWriter, r *http.Request) e
 
 	err = ctrl.writer.DeleteBook(r.Context(), bookID)
 	if err != nil {
-		return addTitle(err, "Problem deleting Book")
+		return addTitle(err, "Problem deleting book")
 	}
 
 	w.WriteHeader(http.StatusOK)
