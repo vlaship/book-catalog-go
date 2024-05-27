@@ -6,7 +6,7 @@ import (
 	"reflect"
 )
 
-// ValidatorImpl is a valid for requests
+// ValidatorImpl is a validator for requests
 type ValidatorImpl struct {
 	valid *validator.Validate
 }

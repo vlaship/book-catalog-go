@@ -65,7 +65,7 @@ func (s *AuthService) Signin(ctx context.Context, req model.User) (*model.Signin
 		s.log.Wrn().Err(err).Ctx(ctx).Msg("validatePassword")
 		return nil, apperr.ErrUnauthorized
 	}
-	if user.Data.Status != "" {
+	if user.Data.Status != model.UserStatusActive {
 		return nil, user.GetAppError()
 	}
 

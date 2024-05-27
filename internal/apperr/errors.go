@@ -28,17 +28,9 @@ var (
 		Title:  http.StatusText(http.StatusInternalServerError),
 		Detail: "internal server error",
 	}
-	ErrAffectedMoreThanOneRow = AppError{
-		Code:   "ERR-005",
-		Title:  http.StatusText(http.StatusInternalServerError),
-		Detail: "affected more than one row",
-		Err:    ErrInternalServerError,
-	}
-	ErrNoFoundForeignKey = AppError{
-		Code:   "ERR-006",
-		Title:  http.StatusText(http.StatusInternalServerError),
-		Detail: "not found foreign key",
-		Err:    ErrInternalServerError,
+	ErrUnsupportedMediaType = AppError{
+		Code:  "ERR-006",
+		Title: http.StatusText(http.StatusUnsupportedMediaType),
 	}
 	ErrValidationRequest = AppError{
 		Code:  "ERR-007",
@@ -50,14 +42,17 @@ var (
 		Title: "problem decoding request",
 		Err:   ErrBadRequest,
 	}
-	ErrUnsupportedMediaType = AppError{
-		Code:  "ERR-009",
-		Title: http.StatusText(http.StatusUnsupportedMediaType),
+	ErrAffectedMoreThanOneRow = AppError{
+		Code:   "ERR-009",
+		Title:  http.StatusText(http.StatusInternalServerError),
+		Detail: "affected more than one row",
+		Err:    ErrInternalServerError,
 	}
-	ErrAlreadyExists = AppError{
+	ErrNoFoundForeignKey = AppError{
 		Code:   "ERR-010",
-		Detail: "already exists",
-		Err:    ErrBadRequest,
+		Title:  http.StatusText(http.StatusInternalServerError),
+		Detail: "not found foreign key",
+		Err:    ErrInternalServerError,
 	}
 	ErrNoBearerToken = AppError{
 		Code:   "ERR-011",
@@ -88,5 +83,10 @@ var (
 		Code:   "ERR-016",
 		Detail: "invalid otp",
 		Err:    ErrForbidden,
+	}
+	ErrAlreadyExists = AppError{
+		Code:   "ERR-017",
+		Detail: "already exists",
+		Err:    ErrBadRequest,
 	}
 )

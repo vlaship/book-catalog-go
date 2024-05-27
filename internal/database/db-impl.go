@@ -14,9 +14,9 @@ import (
 
 const (
 	// FailedBeginTransaction Error messages
-	FailedBeginTransaction = "failed to begin transaction"
+	FailedBeginTransaction = "failed to begin transaction: %v"
 	// FailedCommitTransaction Error messages
-	FailedCommitTransaction = "failed to commit transaction"
+	FailedCommitTransaction = "failed to commit transaction: %v"
 )
 
 // ConnPoolImpl is a struct that represents a connection pool to a Postgres database
