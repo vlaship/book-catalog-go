@@ -20,6 +20,8 @@ require (
 	github.com/stretchr/testify v1.9.0
 	github.com/swaggo/http-swagger/v2 v2.0.2
 	github.com/swaggo/swag v1.16.3
+	github.com/vlaship/go-mask v0.1.1
+	github.com/vlaship/go-otp v0.1.0
 	golang.org/x/crypto v0.24.0
 )
 

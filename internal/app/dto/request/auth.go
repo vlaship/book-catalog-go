@@ -3,7 +3,7 @@ package request
 import (
 	"fmt"
 	"github.com/vlaship/book-catalog-go/internal/app/types"
-	"github.com/vlaship/book-catalog-go/pkg/utils/mask"
+	"github.com/vlaship/go-mask"
 )
 
 // Signin request
