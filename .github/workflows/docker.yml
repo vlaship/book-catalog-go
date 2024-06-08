@@ -23,5 +23,5 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Build Docker JVM Image
-        run: docker build Dockerfile .
+      - name: Build Docker Image
+        run: docker build .
