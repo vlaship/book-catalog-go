@@ -1,9 +1,9 @@
 package request
 
 import (
-	"book-catalog/internal/app/types"
-	"book-catalog/pkg/utils/mask"
 	"fmt"
+	"github.com/vlaship/book-catalog-go/internal/app/types"
+	"github.com/vlaship/book-catalog-go/pkg/utils/mask"
 )
 
 // Signin request

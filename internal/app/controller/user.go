@@ -1,13 +1,13 @@
 package controller
 
 import (
-	"book-catalog/internal/app/dto/request"
-	"book-catalog/internal/app/dto/response"
-	"book-catalog/internal/httphandling"
-	"book-catalog/internal/logger"
-	"book-catalog/internal/validation"
 	"context"
 	"github.com/go-chi/chi/v5"
+	"github.com/vlaship/book-catalog-go/internal/app/dto/request"
+	"github.com/vlaship/book-catalog-go/internal/app/dto/response"
+	"github.com/vlaship/book-catalog-go/internal/httphandling"
+	"github.com/vlaship/book-catalog-go/internal/logger"
+	"github.com/vlaship/book-catalog-go/internal/validation"
 	"net/http"
 )
 

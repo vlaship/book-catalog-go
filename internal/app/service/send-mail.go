@@ -1,13 +1,13 @@
 package service
 
 import (
-	"book-catalog/internal/app/types"
-	"book-catalog/internal/apperr"
-	"book-catalog/internal/config"
-	"book-catalog/internal/email"
-	"book-catalog/internal/logger"
-	"book-catalog/internal/template"
-	"book-catalog/pkg/utils/mask"
+	"github.com/vlaship/book-catalog-go/internal/app/types"
+	"github.com/vlaship/book-catalog-go/internal/apperr"
+	"github.com/vlaship/book-catalog-go/internal/config"
+	"github.com/vlaship/book-catalog-go/internal/email"
+	"github.com/vlaship/book-catalog-go/internal/logger"
+	"github.com/vlaship/book-catalog-go/internal/template"
+	"github.com/vlaship/book-catalog-go/pkg/utils/mask"
 )
 
 const (

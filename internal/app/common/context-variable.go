@@ -1,9 +1,9 @@
 package common
 
 import (
-	"book-catalog/internal/app/model"
-	"book-catalog/internal/app/types"
 	"context"
+	"github.com/vlaship/book-catalog-go/internal/app/model"
+	"github.com/vlaship/book-catalog-go/internal/app/types"
 
 	"github.com/go-chi/chi/v5/middleware"
 )

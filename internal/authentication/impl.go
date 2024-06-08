@@ -1,11 +1,11 @@
 package authentication
 
 import (
-	"book-catalog/internal/app/types"
-	"book-catalog/internal/apperr"
-	"book-catalog/internal/config"
 	"fmt"
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/vlaship/book-catalog-go/internal/app/types"
+	"github.com/vlaship/book-catalog-go/internal/apperr"
+	"github.com/vlaship/book-catalog-go/internal/config"
 	"net/http"
 	"strconv"
 	"strings"

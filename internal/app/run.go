@@ -1,12 +1,12 @@
 package app
 
 import (
-	"book-catalog/internal/config"
-	"book-catalog/internal/database"
-	"book-catalog/internal/logger"
 	"context"
 	"errors"
 	"fmt"
+	"github.com/vlaship/book-catalog-go/internal/config"
+	"github.com/vlaship/book-catalog-go/internal/database"
+	"github.com/vlaship/book-catalog-go/internal/logger"
 	"net/http"
 	"os"
 	"os/signal"

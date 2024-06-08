@@ -4,14 +4,14 @@
 package service
 
 import (
-	"book-catalog/internal/app/repository"
-	"book-catalog/internal/cache"
-	"book-catalog/internal/config"
-	"book-catalog/internal/email"
-	"book-catalog/internal/logger"
-	"book-catalog/internal/snowflake"
-	"book-catalog/internal/template"
 	"github.com/google/wire"
+	"github.com/vlaship/book-catalog-go/internal/app/repository"
+	"github.com/vlaship/book-catalog-go/internal/cache"
+	"github.com/vlaship/book-catalog-go/internal/config"
+	"github.com/vlaship/book-catalog-go/internal/email"
+	"github.com/vlaship/book-catalog-go/internal/logger"
+	"github.com/vlaship/book-catalog-go/internal/snowflake"
+	"github.com/vlaship/book-catalog-go/internal/template"
 )
 
 func Wire(

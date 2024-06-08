@@ -1,7 +1,7 @@
 package service
 
 import (
-	"book-catalog/internal/app/types"
+	"github.com/vlaship/book-catalog-go/internal/app/types"
 	"golang.org/x/crypto/bcrypt"
 )
 

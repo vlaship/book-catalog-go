@@ -1,13 +1,13 @@
 package service
 
 import (
-	"book-catalog/internal/app/types"
-	"book-catalog/internal/apperr"
-	"book-catalog/internal/cache"
-	"book-catalog/internal/logger"
-	"book-catalog/pkg/utils/generate"
-	"book-catalog/pkg/utils/mask"
 	"context"
+	"github.com/vlaship/book-catalog-go/internal/app/types"
+	"github.com/vlaship/book-catalog-go/internal/apperr"
+	"github.com/vlaship/book-catalog-go/internal/cache"
+	"github.com/vlaship/book-catalog-go/internal/logger"
+	"github.com/vlaship/book-catalog-go/pkg/utils/generate"
+	"github.com/vlaship/book-catalog-go/pkg/utils/mask"
 	"time"
 )
 

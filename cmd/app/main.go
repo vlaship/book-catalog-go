@@ -1,9 +1,9 @@
 package main
 
 import (
-	"book-catalog/internal/app"
-	"book-catalog/internal/config"
-	"book-catalog/internal/logger"
+	"github.com/vlaship/book-catalog-go/internal/app"
+	"github.com/vlaship/book-catalog-go/internal/config"
+	"github.com/vlaship/book-catalog-go/internal/logger"
 	"log/slog"
 	"os"
 )

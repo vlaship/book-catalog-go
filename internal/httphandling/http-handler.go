@@ -1,7 +1,7 @@
 package httphandling
 
 import (
-	"book-catalog/internal/apperr"
+	"github.com/vlaship/book-catalog-go/internal/apperr"
 	"net/http"
 )
 

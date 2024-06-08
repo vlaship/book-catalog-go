@@ -1,10 +1,10 @@
 package httphandling
 
 import (
-	"book-catalog/internal/app/dto/response"
-	"book-catalog/internal/apperr"
-	"book-catalog/internal/logger"
 	"errors"
+	"github.com/vlaship/book-catalog-go/internal/app/dto/response"
+	"github.com/vlaship/book-catalog-go/internal/apperr"
+	"github.com/vlaship/book-catalog-go/internal/logger"
 	"net/http"
 	"time"
 )

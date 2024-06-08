@@ -1,10 +1,10 @@
 package mapper
 
 import (
-	"book-catalog/internal/app/dto/request"
-	"book-catalog/internal/app/dto/response"
-	"book-catalog/internal/app/model"
-	"book-catalog/internal/app/types"
+	"github.com/vlaship/book-catalog-go/internal/app/dto/request"
+	"github.com/vlaship/book-catalog-go/internal/app/dto/response"
+	"github.com/vlaship/book-catalog-go/internal/app/model"
+	"github.com/vlaship/book-catalog-go/internal/app/types"
 )
 
 // Author is a mapper for author

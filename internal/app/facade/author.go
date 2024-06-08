@@ -1,13 +1,13 @@
 package facade
 
 import (
-	"book-catalog/internal/app/dto/request"
-	"book-catalog/internal/app/dto/response"
-	"book-catalog/internal/app/mapper"
-	"book-catalog/internal/app/model"
-	"book-catalog/internal/app/types"
-	"book-catalog/internal/logger"
 	"context"
+	"github.com/vlaship/book-catalog-go/internal/app/dto/request"
+	"github.com/vlaship/book-catalog-go/internal/app/dto/response"
+	"github.com/vlaship/book-catalog-go/internal/app/mapper"
+	"github.com/vlaship/book-catalog-go/internal/app/model"
+	"github.com/vlaship/book-catalog-go/internal/app/types"
+	"github.com/vlaship/book-catalog-go/internal/logger"
 )
 
 // AuthorReader is an interface for author reader

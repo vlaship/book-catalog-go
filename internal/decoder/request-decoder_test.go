@@ -1,9 +1,9 @@
 package decoder
 
 import (
-	"book-catalog/internal/apperr"
 	"errors"
 	"github.com/stretchr/testify/assert"
+	"github.com/vlaship/book-catalog-go/internal/apperr"
 	"io"
 	"net/http"
 	"strings"

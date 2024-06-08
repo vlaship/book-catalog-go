@@ -1,10 +1,10 @@
 package logger
 
 import (
-	"book-catalog/internal/app/common"
-	"book-catalog/internal/config"
 	"context"
 	"fmt"
+	"github.com/vlaship/book-catalog-go/internal/app/common"
+	"github.com/vlaship/book-catalog-go/internal/config"
 	"os"
 	"time"
 

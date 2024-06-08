@@ -1,15 +1,15 @@
 package service
 
 import (
-	"book-catalog/internal/app/model"
-	"book-catalog/internal/app/types"
-	"book-catalog/internal/apperr"
-	"book-catalog/internal/logger"
-	"book-catalog/internal/snowflake"
-	"book-catalog/pkg/utils/mask"
 	"context"
 	"errors"
 	"fmt"
+	"github.com/vlaship/book-catalog-go/internal/app/model"
+	"github.com/vlaship/book-catalog-go/internal/app/types"
+	"github.com/vlaship/book-catalog-go/internal/apperr"
+	"github.com/vlaship/book-catalog-go/internal/logger"
+	"github.com/vlaship/book-catalog-go/internal/snowflake"
+	"github.com/vlaship/book-catalog-go/pkg/utils/mask"
 )
 
 // Authenticator interface

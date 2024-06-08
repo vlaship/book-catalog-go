@@ -1,13 +1,13 @@
 package router
 
 import (
-	_ "book-catalog/api/docs" // swagger docs
-	"book-catalog/internal/app/controller"
-	"book-catalog/internal/authentication"
-	"book-catalog/internal/httphandling"
-	"book-catalog/internal/logger"
-	mw "book-catalog/internal/router/middleware"
 	"compress/gzip"
+	_ "github.com/vlaship/book-catalog-go/api/docs" // swagger docs
+	"github.com/vlaship/book-catalog-go/internal/app/controller"
+	"github.com/vlaship/book-catalog-go/internal/authentication"
+	"github.com/vlaship/book-catalog-go/internal/httphandling"
+	"github.com/vlaship/book-catalog-go/internal/logger"
+	mw "github.com/vlaship/book-catalog-go/internal/router/middleware"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"

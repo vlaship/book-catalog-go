@@ -1,8 +1,8 @@
 package request
 
 import (
-	"book-catalog/pkg/utils/mask"
 	"fmt"
+	"github.com/vlaship/book-catalog-go/pkg/utils/mask"
 )
 
 // UserData is a request model for user info
