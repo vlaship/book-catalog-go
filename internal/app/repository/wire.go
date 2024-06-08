@@ -4,8 +4,8 @@
 package repository
 
 import (
-	"book-catalog/internal/database"
-	"book-catalog/internal/logger"
+	"github.com/vlaship/book-catalog-go/internal/database"
+	"github.com/vlaship/book-catalog-go/internal/logger"
 
 	"github.com/google/wire"
 )

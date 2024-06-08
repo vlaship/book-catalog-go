@@ -1,11 +1,11 @@
 package database
 
 import (
-	"book-catalog/internal/config"
-	"book-catalog/internal/logger"
 	"context"
 	"fmt"
 	"github.com/jackc/pgx/v5"
+	"github.com/vlaship/book-catalog-go/internal/config"
+	"github.com/vlaship/book-catalog-go/internal/logger"
 
 	zerologadapter "github.com/jackc/pgx-zerolog"
 	"github.com/jackc/pgx/v5/pgxpool"

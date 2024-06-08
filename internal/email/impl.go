@@ -1,10 +1,10 @@
 package email
 
 import (
-	"book-catalog/internal/apperr"
-	"book-catalog/internal/config"
 	"bytes"
 	"fmt"
+	"github.com/vlaship/book-catalog-go/internal/apperr"
+	"github.com/vlaship/book-catalog-go/internal/config"
 	"html/template"
 	"net/smtp"
 )

@@ -1,7 +1,7 @@
 package dto
 
 import (
-	. "book-catalog/internal/app/dto/request" //nolint:revive,stylecheck // reduce number of symbols
+	. "github.com/vlaship/book-catalog-go/internal/app/dto/request" //nolint:revive,stylecheck // reduce number of symbols
 )
 
 type Request interface {

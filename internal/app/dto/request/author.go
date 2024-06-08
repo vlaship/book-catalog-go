@@ -1,6 +1,6 @@
 package request
 
-import "book-catalog/internal/app/types"
+import "github.com/vlaship/book-catalog-go/internal/app/types"
 
 // CreateAuthor request
 type CreateAuthor struct {

@@ -1,12 +1,12 @@
 package repository
 
 import (
-	"book-catalog/internal/app/model"
-	"book-catalog/internal/app/types"
-	"book-catalog/internal/database"
-	"book-catalog/internal/logger"
-	"book-catalog/pkg/utils/mask"
 	"context"
+	"github.com/vlaship/book-catalog-go/internal/app/model"
+	"github.com/vlaship/book-catalog-go/internal/app/types"
+	"github.com/vlaship/book-catalog-go/internal/database"
+	"github.com/vlaship/book-catalog-go/internal/logger"
+	"github.com/vlaship/book-catalog-go/pkg/utils/mask"
 	"strings"
 )
 

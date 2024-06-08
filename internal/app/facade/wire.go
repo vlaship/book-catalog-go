@@ -4,9 +4,9 @@
 package facade
 
 import (
-	"book-catalog/internal/app/service"
-	"book-catalog/internal/logger"
 	"github.com/google/wire"
+	"github.com/vlaship/book-catalog-go/internal/app/service"
+	"github.com/vlaship/book-catalog-go/internal/logger"
 )
 
 func Wire(services *service.Services, log logger.Logger) *Facades {

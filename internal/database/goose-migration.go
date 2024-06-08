@@ -1,11 +1,11 @@
 package database
 
 import (
-	"book-catalog/internal/config"
-	"book-catalog/internal/logger"
 	"database/sql"
 	"embed"
 	"fmt"
+	"github.com/vlaship/book-catalog-go/internal/config"
+	"github.com/vlaship/book-catalog-go/internal/logger"
 
 	_ "github.com/jackc/pgx/v5/stdlib" //nolint:revive // required for goose
 	"github.com/pressly/goose/v3"

@@ -1,11 +1,11 @@
 package repository
 
 import (
-	"book-catalog/internal/app/model"
-	"book-catalog/internal/app/types"
-	"book-catalog/internal/database"
-	"book-catalog/internal/logger"
 	"context"
+	"github.com/vlaship/book-catalog-go/internal/app/model"
+	"github.com/vlaship/book-catalog-go/internal/app/types"
+	"github.com/vlaship/book-catalog-go/internal/database"
+	"github.com/vlaship/book-catalog-go/internal/logger"
 )
 
 // BookRepository is an interface for book repository

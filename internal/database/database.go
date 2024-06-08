@@ -1,10 +1,10 @@
 package database
 
 import (
-	"book-catalog/internal/apperr"
 	"database/sql"
 	"errors"
 	"github.com/jackc/pgx/v5/pgconn"
+	"github.com/vlaship/book-catalog-go/internal/apperr"
 )
 
 // GetErrorByCode returns error by pgErr.Code

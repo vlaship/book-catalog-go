@@ -1,6 +1,6 @@
 package response
 
-import "book-catalog/internal/app/types"
+import "github.com/vlaship/book-catalog-go/internal/app/types"
 
 // Signin response
 type Signin struct {

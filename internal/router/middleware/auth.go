@@ -1,13 +1,13 @@
 package middleware
 
 import (
-	"book-catalog/internal/app/model"
-	"book-catalog/internal/app/types"
-	"book-catalog/internal/apperr"
-	"book-catalog/internal/httphandling"
-	"book-catalog/internal/logger"
 	"context"
 	"errors"
+	"github.com/vlaship/book-catalog-go/internal/app/model"
+	"github.com/vlaship/book-catalog-go/internal/app/types"
+	"github.com/vlaship/book-catalog-go/internal/apperr"
+	"github.com/vlaship/book-catalog-go/internal/httphandling"
+	"github.com/vlaship/book-catalog-go/internal/logger"
 	"net/http"
 )
 

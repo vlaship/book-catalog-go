@@ -1,15 +1,15 @@
 package controller
 
 import (
-	"book-catalog/internal/app/dto"
-	"book-catalog/internal/app/types"
-	"book-catalog/internal/apperr"
-	"book-catalog/internal/decoder"
-	"book-catalog/internal/validation"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/go-chi/chi/v5"
+	"github.com/vlaship/book-catalog-go/internal/app/dto"
+	"github.com/vlaship/book-catalog-go/internal/app/types"
+	"github.com/vlaship/book-catalog-go/internal/apperr"
+	"github.com/vlaship/book-catalog-go/internal/decoder"
+	"github.com/vlaship/book-catalog-go/internal/validation"
 	"net/http"
 )
 

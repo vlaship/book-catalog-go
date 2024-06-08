@@ -4,11 +4,11 @@
 package controller
 
 import (
-	"book-catalog/internal/app/facade"
-	"book-catalog/internal/httphandling"
-	"book-catalog/internal/logger"
-	"book-catalog/internal/validation"
 	"github.com/google/wire"
+	"github.com/vlaship/book-catalog-go/internal/app/facade"
+	"github.com/vlaship/book-catalog-go/internal/httphandling"
+	"github.com/vlaship/book-catalog-go/internal/logger"
+	"github.com/vlaship/book-catalog-go/internal/validation"
 )
 
 func Wire(

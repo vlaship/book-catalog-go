@@ -1,10 +1,10 @@
 package decoder
 
 import (
-	"book-catalog/internal/apperr"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/vlaship/book-catalog-go/internal/apperr"
 	"io"
 	"net/http"
 	"strings"

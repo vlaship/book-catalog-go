@@ -1,9 +1,9 @@
 package middleware
 
 import (
-	"book-catalog/internal/apperr"
-	"book-catalog/internal/httphandling"
 	"fmt"
+	"github.com/vlaship/book-catalog-go/internal/apperr"
+	"github.com/vlaship/book-catalog-go/internal/httphandling"
 	"net/http"
 	"strings"
 )

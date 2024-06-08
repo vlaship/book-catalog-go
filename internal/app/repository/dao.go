@@ -1,11 +1,11 @@
 package repository
 
 import (
-	"book-catalog/internal/app/model"
-	"book-catalog/internal/database"
-	"book-catalog/internal/logger"
 	"context"
 	"github.com/jackc/pgx/v5"
+	"github.com/vlaship/book-catalog-go/internal/app/model"
+	"github.com/vlaship/book-catalog-go/internal/database"
+	"github.com/vlaship/book-catalog-go/internal/logger"
 )
 
 // Repo is an interface for repositories

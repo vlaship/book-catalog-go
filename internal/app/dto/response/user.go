@@ -1,7 +1,7 @@
 package response
 
 import (
-	"book-catalog/internal/app/types"
+	"github.com/vlaship/book-catalog-go/internal/app/types"
 )
 
 // User is a response model for user

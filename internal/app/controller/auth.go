@@ -1,13 +1,13 @@
 package controller
 
 import (
-	"book-catalog/internal/app/dto/request"
-	"book-catalog/internal/app/dto/response"
-	"book-catalog/internal/httphandling"
-	"book-catalog/internal/logger"
-	"book-catalog/internal/validation"
 	"context"
 	"github.com/go-chi/chi/v5"
+	"github.com/vlaship/book-catalog-go/internal/app/dto/request"
+	"github.com/vlaship/book-catalog-go/internal/app/dto/response"
+	"github.com/vlaship/book-catalog-go/internal/httphandling"
+	"github.com/vlaship/book-catalog-go/internal/logger"
+	"github.com/vlaship/book-catalog-go/internal/validation"
 	"net/http"
 )
 
@@ -17,7 +17,7 @@ const (
 
 // Auth interface
 //
-//go:generate mockgen -destination=../../../test/mock/controller/mock-auth.go -package=mock book-catalog/internal/app/controller Auth
+//go:generate mockgen -destination=../../../test/mock/controller/mock-auth.go -package=mock github.com/vlaship/book-catalog-go/internal/app/controller Auth
 type Auth interface {
 	Signin(ctx context.Context, req *request.Signin) (*response.Signin, error)
 	Signup(ctx context.Context, req *request.Signup) error
@@ -25,7 +25,7 @@ type Auth interface {
 
 // PasswordResetHandler interface
 //
-//go:generate mockgen -destination=../../../test/mock/controller/mock-password-reset-handler.go -package=mock book-catalog/internal/app/controller PasswordResetHandler
+//go:generate mockgen -destination=../../../test/mock/controller/mock-password-reset-handler.go -package=mock github.com/vlaship/book-catalog-go/internal/app/controller PasswordResetHandler
 type PasswordResetHandler interface {
 	Reset(ctx context.Context, req *request.ResetPassword) error
 	Replace(ctx context.Context, req *request.ReplacePassword) error
@@ -33,7 +33,7 @@ type PasswordResetHandler interface {
 
 // Activator interface
 //
-//go:generate mockgen -destination=../../../test/mock/controller/mock-activator.go -package=mock book-catalog/internal/app/controller Activator
+//go:generate mockgen -destination=../../../test/mock/controller/mock-activator.go -package=mock github.com/vlaship/book-catalog-go/internal/app/controller Activator
 type Activator interface {
 	Activate(ctx context.Context, req *request.Activation) error
 	Resend(ctx context.Context, req *request.ResendActivation) error

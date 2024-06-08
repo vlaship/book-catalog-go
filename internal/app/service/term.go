@@ -1,9 +1,9 @@
 package service
 
 import (
-	"book-catalog/internal/app/model"
-	"book-catalog/internal/logger"
 	"context"
+	"github.com/vlaship/book-catalog-go/internal/app/model"
+	"github.com/vlaship/book-catalog-go/internal/logger"
 )
 
 // TosReader is an interface for term of service reader
