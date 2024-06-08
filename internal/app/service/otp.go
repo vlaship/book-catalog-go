@@ -6,8 +6,8 @@ import (
 	"github.com/vlaship/book-catalog-go/internal/apperr"
 	"github.com/vlaship/book-catalog-go/internal/cache"
 	"github.com/vlaship/book-catalog-go/internal/logger"
-	"github.com/vlaship/book-catalog-go/pkg/utils/generate"
-	"github.com/vlaship/book-catalog-go/pkg/utils/mask"
+	"github.com/vlaship/go-mask"
+	"github.com/vlaship/go-otp"
 	"time"
 )
 
@@ -37,10 +37,10 @@ func NewOTPService(
 func (s *OTPService) GenerateActivationOTP(ctx context.Context, username types.Username) types.Token {
 	s.log.Trc().Ctx(ctx).Values("username", mask.String(string(username))).Msg("GenerateActivationOTP")
 
-	otp := generate.OTP()
-	s.cacher.Put(otp, username, ttlActivation)
+	o := otp.Generate()
+	s.cacher.Put(o, username, ttlActivation)
 
-	return types.Token(otp)
+	return types.Token(o)
 }
 
 // ValidateActivationOTP validates activation otp
@@ -58,10 +58,10 @@ func (s *OTPService) ValidateActivationOTP(ctx context.Context, otp types.Token)
 func (s *OTPService) GenerateResetPasswordOTP(ctx context.Context, username types.Username) types.Token {
 	s.log.Trc().Ctx(ctx).Values("username", mask.String(string(username))).Msg("GenerateResetPasswordOTP")
 
-	otp := generate.OTP()
-	s.cacher.Put(otp, username, ttlReset)
+	o := otp.Generate()
+	s.cacher.Put(o, username, ttlReset)
 
-	return types.Token(otp)
+	return types.Token(o)
 }
 
 func (s *OTPService) ValidateResetPasswordOTP(ctx context.Context, otp types.Token) (types.Username, error) {

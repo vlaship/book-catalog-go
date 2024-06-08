@@ -7,7 +7,7 @@ import (
 	"github.com/vlaship/book-catalog-go/internal/email"
 	"github.com/vlaship/book-catalog-go/internal/logger"
 	"github.com/vlaship/book-catalog-go/internal/template"
-	"github.com/vlaship/book-catalog-go/pkg/utils/mask"
+	"github.com/vlaship/go-mask"
 )
 
 const (

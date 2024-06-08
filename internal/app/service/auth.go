@@ -9,7 +9,7 @@ import (
 	"github.com/vlaship/book-catalog-go/internal/apperr"
 	"github.com/vlaship/book-catalog-go/internal/logger"
 	"github.com/vlaship/book-catalog-go/internal/snowflake"
-	"github.com/vlaship/book-catalog-go/pkg/utils/mask"
+	"github.com/vlaship/go-mask"
 )
 
 // Authenticator interface
