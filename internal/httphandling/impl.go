@@ -75,7 +75,7 @@ func (h *HTTPErrorHandlerImpl) getProblemDetails(err error) *response.ProblemDet
 	var appError apperr.AppError
 	if errors.As(err, &appError) {
 		p := h.newFromAppError(appError)
-		p.Status = h.getStatus(appError)
+		p.Status = getStatus(appError)
 		return &p
 	}
 
@@ -85,7 +85,7 @@ func (h *HTTPErrorHandlerImpl) getProblemDetails(err error) *response.ProblemDet
 	return &p
 }
 
-func (h *HTTPErrorHandlerImpl) getStatus(err error) int {
+func getStatus(err error) int {
 	switch {
 	case errors.Is(err, apperr.ErrUnauthorized):
 		return http.StatusUnauthorized
