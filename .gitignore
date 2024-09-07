@@ -9,3 +9,5 @@ test/mocks/
 
 wire_gen.go
 *.exe
+.env
+docker-compose.yaml
