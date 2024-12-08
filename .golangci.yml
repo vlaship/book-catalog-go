@@ -29,43 +29,32 @@ linters-settings:
 
 linters:
   enable:
-    - bodyclose
-    - revive
     - govet
-    - unconvert
-    - unused
+    - golint
     - gocyclo
-    - misspell
-    - unparam
-    - typecheck
-    - ineffassign
-    - stylecheck
-    - gochecknoinits
-    - exportloopref
-    - gocritic
-    - nakedret
-    - gosimple
-    - prealloc
-    - zerologlint
-    - wastedassign
-    - usestdlibvars
-    - rowserrcheck
-    - lll
+    - maligned
     - goconst
-    - gosec
-    - sqlclosecheck
-    - contextcheck
-    - cyclop
-    - dupl
-    - errchkjson
-  #    - govulncheck
-  #    - gokart
+    - misspell
+    - lll
+    - gocritic
   fast: false
-  disable-all: true
+  disable-all: false
 
 run:
   timeout: 5m
+  issues-exit-code: 1
+  concurrency: 4
   allow-parallel-runners: true
-  issues:
-    exclude-dirs:
-      - test
+
+issues:
+  exclude-dirs:
+    - test
+
+output:
+  formats:
+    - format: checkstyle
+      path: report.xml
+    - format: colored-line-number
+      path: stdout
+  print-issued-lines: true
+  print-linter-name: true

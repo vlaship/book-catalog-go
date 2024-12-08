@@ -2,13 +2,15 @@ package router
 
 import (
 	"compress/gzip"
+	"net/http"
+	"time"
+
 	_ "github.com/vlaship/book-catalog-go/api/docs" // swagger docs
 	"github.com/vlaship/book-catalog-go/internal/app/controller"
 	"github.com/vlaship/book-catalog-go/internal/authentication"
 	"github.com/vlaship/book-catalog-go/internal/httphandling"
 	"github.com/vlaship/book-catalog-go/internal/logger"
 	mw "github.com/vlaship/book-catalog-go/internal/router/middleware"
-	"net/http"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -39,15 +41,30 @@ func Setup(
 
 	// init middleware
 	l := log.New("router")
-	r.Use(httplog.RequestLogger(l.Logger()))
-	r.Use(middleware.Recoverer)
-	r.Use(middleware.Compress(gzip.DefaultCompression))
-	r.Use(middleware.RequestID)
-	r.Use(middleware.RealIP)
 	r.Use(middleware.GetHead)
 	r.Use(middleware.Heartbeat("/health"))
-	r.Use(mw.CorsHandler())
+	r.Use(middleware.RealIP)
+	r.Use(middleware.Recoverer)
+	r.Use(middleware.RequestID)
 	r.Use(middleware.StripSlashes)
+
+	// Add compression middleware
+	// Compression is crucial for reducing the size of responses, improving page load times, and enhancing overall user experience.
+	r.Use(middleware.NewCompressor(gzip.DefaultCompression).Handler)
+
+	// Add timeout middleware
+	r.Use(middleware.Timeout(30 * time.Second))
+
+	// Add custom logger middleware
+	r.Use(httplog.RequestLogger(l.Logger()))
+
+	// Add CORS middleware
+	// CORS is essential for handling cross-origin requests, enabling communication between different domains, and preventing security vulnerabilities.
+	r.Use(mw.CorsHandler())
+
+	// Add rate limiter
+	r.Use(middleware.ThrottleBacklog(100, 50, time.Second*10))
+
 	r.Use(mw.NewContentTypeMiddleware(handler).AllowContentType("application/json"))
 
 	r.Route(basePath, func(baseRouter chi.Router) {

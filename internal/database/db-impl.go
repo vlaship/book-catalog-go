@@ -6,6 +6,7 @@ import (
 	"github.com/jackc/pgx/v5"
 	"github.com/vlaship/book-catalog-go/internal/config"
 	"github.com/vlaship/book-catalog-go/internal/logger"
+	"time"
 
 	zerologadapter "github.com/jackc/pgx-zerolog"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -34,6 +35,13 @@ func New(cfg *config.Config, log logger.Logger) (ConnPool, error) {
 		log.Err(err).Msg("failed to parse config for database")
 		return nil, err
 	}
+
+	// Optimize connection pool settings
+	dbCfg.MaxConns = 25                    // Set max connections
+	dbCfg.MinConns = 5                     // Set min connections
+	dbCfg.MaxConnLifetime = 1 * time.Hour  // Max connection lifetime
+	dbCfg.MaxConnIdleTime = 30 * time.Minute // Max idle time
+	dbCfg.HealthCheckPeriod = 1 * time.Minute // Health check period
 
 	logLevel, err := tracelog.LogLevelFromString(cfg.LogLevelDB)
 	if err != nil {
