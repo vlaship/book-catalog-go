@@ -87,12 +87,12 @@ func (h *HTTPErrorHandlerImpl) getProblemDetails(err error) *response.ProblemDet
 
 func getStatus(err error) int {
 	switch {
-	case errors.Is(err, apperr.ErrUnauthorized):
+	case errors.Is(err, apperr.ErrUnauthorized),
+		errors.Is(err, apperr.ErrInvalidToken):
 		return http.StatusUnauthorized
 	case errors.Is(err, apperr.ErrNotFound):
 		return http.StatusNotFound
 	case errors.Is(err, apperr.ErrForbidden),
-		errors.Is(err, apperr.ErrInvalidToken),
 		errors.Is(err, apperr.ErrUserNotActivated),
 		errors.Is(err, apperr.ErrInvalidOTP):
 		return http.StatusForbidden
